@@ -1,5 +1,5 @@
 import cartReducer from "./cartReducer";
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -9,18 +9,23 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  PersistConfig,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
+const persistConfig: PersistConfig<any> = {
   key: "root",
   version: 1,
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, cartReducer);
+const rootReducer = combineReducers({
+  cartReducer,
+  });
 
-export const store = configureStore({
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
   reducer: {
     cart: persistedReducer,
   },
@@ -32,4 +37,8 @@ export const store = configureStore({
     }),
 });
 
-export let persistor = persistStore(store);
+export type AppState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
+export const persistor = persistStore(store);
+
+export default store;
