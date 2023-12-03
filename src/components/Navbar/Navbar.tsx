@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.scss"
 // import Cart from "../Cart/Cart";
 import useAppSelector from "../../hooks/useAppSelector";
+import Cart from "../Cart/Cart";
 
 const Navbar = () => {
   const [open,setOpen] = useState(false)
@@ -58,13 +59,12 @@ const Navbar = () => {
             <FavoriteBorderOutlinedIcon/>
             <div className="cartIcon" onClick={()=>setOpen(!open)}>
               <ShoppingCartOutlinedIcon/>
-              <span>0</span>
-              {/* <span>{cart.length}</span> */}
+              <span>{cart.length}</span>
             </div>
           </div>
         </div>
       </div>
-      {/* {open && <Cart/>} */}
+      {open && <Cart />}
     </div>
   );
 };
