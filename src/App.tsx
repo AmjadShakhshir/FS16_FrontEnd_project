@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Root from './pages/Root/Root';
-import HomePage from './pages/Home/Home';
-import ProductsPage from './pages/Products/Products';
-// import SingleProductPage from './pages/Product/Product';
+import HomePage from './pages/Home/HomePage';
+import ProductsPage from './pages/Products/ProductsPage';
 import ErrorPage from './pages/Error/ErrorPage';
+import ProductPage from './pages/Product/ProductPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -20,10 +20,10 @@ const App = () => {
           path: 'products',
           element: <ProductsPage />
         },
-        // {
-        //   path: 'products/:id',
-        //   element: <SingleProductPage />,
-        // },
+        {
+          path: 'products/:id',
+          element: <ProductPage />,
+        },
       //   {
       //     path: 'register',
       //     element: <RegisterPage />
