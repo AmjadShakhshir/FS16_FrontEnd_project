@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './pages/Root/Root';
 import HomePage from './pages/Home/Home';
 import ProductsPage from './pages/Products/Products';
-import SingleProductPage from './pages/Product/Product';
+// import SingleProductPage from './pages/Product/Product';
 import ErrorPage from './pages/Error/ErrorPage';
 
 const App = () => {
@@ -20,10 +20,10 @@ const App = () => {
           path: 'products',
           element: <ProductsPage />
         },
-        {
-          path: 'products/:id',
-          element: <SingleProductPage />,
-        },
+        // {
+        //   path: 'products/:id',
+        //   element: <SingleProductPage />,
+        // },
       //   {
       //     path: 'register',
       //     element: <RegisterPage />

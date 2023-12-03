@@ -2,33 +2,29 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Card.scss";
+import { Product } from "../../types/Product";
 
-const Card = ({ item }) => {
-  console.log(item);
+const Card = ({ product }: { product: Product }) => {
   return (
-    <Link className="link" to={`/product/${item.id}`}>
+    <Link className="link" to={`/product/${product.id}`}>
       <div className="card">
         <div className="image">
-          {item?.attributes.isNew && <span>New Season</span>}
+          {product?.isNew && <span>New Season</span>}
           <img
-            src={
-              process.env.REACT_APP_UPLOAD_URL + item.attributes?.img?.data?.attributes?.url
-            }
+            src={product?.images[0]}
             alt=""
             className="mainImg"
           />
           <img
-            src={
-              process.env.REACT_APP_UPLOAD_URL + item.attributes?.img2?.data?.attributes?.url
-            }
+            src={product?.images[1]}
             alt=""
             className="secondImg"
           />
         </div>
-        <h2>{item?.attributes.title}</h2>
+        <h2>{product?.title}</h2>
         <div className="prices">
-          <h3>${item.oldPrice || item?.attributes.price + 20}</h3>
-          <h3>${item?.attributes.price}</h3>
+          <h3>${product?.price || product?.price + 20}</h3>
+          <h3>${product?.price}</h3>
         </div>
       </div>
     </Link>

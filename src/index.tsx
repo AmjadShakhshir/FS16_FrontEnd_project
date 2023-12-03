@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 
-import store, { persistor } from './redux/store';
+import { store, persistor } from './redux/store';
 import App from './App';
-import './index.css';
+import './index.scss';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const container = document.getElementById('root')!;
