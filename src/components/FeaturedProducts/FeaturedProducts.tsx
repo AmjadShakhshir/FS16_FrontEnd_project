@@ -11,8 +11,14 @@ const FeaturedProducts = ({ type }: {type:string}) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getAllProducts({page: 0, limit: 5}));
+        dispatch(getAllProducts());
     }, [dispatch]);
+
+    const images = [
+    "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "https://images.pexels.com/photos/3259600/pexels-photo-3259600.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"];
 
     return (
         <div className="featuredProducts">
@@ -27,8 +33,8 @@ const FeaturedProducts = ({ type }: {type:string}) => {
             </p>
         </div>
         <div className="bottom">
-            {products.map((product) => (
-                <Card key={product.id} product={product} />
+            {products.slice(0, 4).map((product, index) => (
+                <Card key={product.id} product={product} image={images[index]} />
             ))}
         </div>
         </div>

@@ -15,7 +15,6 @@ const Products = () => {
         const value = e.target.value;
         const isChecked: boolean = e.target.checked || false;
 
-        console.log(selectedSubCats);
         setSelectedSubCats(
         isChecked
             ? [...selectedSubCats, value]
@@ -35,7 +34,7 @@ const Products = () => {
                         value={item.id}
                         onChange={handleChange}
                     />
-                    <label htmlFor={item.id}>{item.title}</label>
+                    <label htmlFor={item.id}>{item.name}</label>
                     </div>
                 ))}
                 </div>

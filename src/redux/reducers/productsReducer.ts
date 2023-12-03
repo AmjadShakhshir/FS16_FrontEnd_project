@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { Product } from '../../types/Product';
 import { GetAllQueries } from '../../types/GetAllQueries';
+import { url } from '../../common/common';
 
 export const initialState: {
     products: Product[];
@@ -19,11 +20,11 @@ export interface ProductState {
     status: "idle" | "loading" | "failed",
 };
 
-export const getAllProducts = createAsyncThunk<Product[], GetAllQueries, { rejectValue: string }>(
+export const getAllProducts = createAsyncThunk<Product[], void, { rejectValue: string }>(
     'getAllProducts',
-    async (options: GetAllQueries, {rejectWithValue}) => {
+    async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get(`https://api.escuelajs.co/api/v1/products?offset=${options.page}&limit=${options.limit}`)
+            const response = await axios.get(`${url}/products`)
             return response.data;
         } catch (e) {
             const error = e as Error;
