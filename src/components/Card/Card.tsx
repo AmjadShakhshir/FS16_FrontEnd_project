@@ -1,20 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { CardMedia } from '@mui/material';
+import { Box } from "@mui/material";
 
 import "./Card.scss";
 import { Product } from "../../types/Product";
-import { Box } from "@mui/material";
 
-const Card = ({ product, image }: { product: Product, image: string }) => {
+const Card = ({ product }: { product: Product}) => {
   return (
-    <Link className="link" to={`/products/${product.id}`}>
+    <Link className="link" to={`/products/${product._id}`}>
       <Box component={'div'} className="card">
         <Box component={'div'} className="image">
           {/* {product?.isNew && <span>New Season</span>} */}
           <CardMedia
             component="img"
-            src={`${image}.jpeg`}
+            src={product?.images[0]}
           />
         </Box>
         <h2>{product?.name}</h2>

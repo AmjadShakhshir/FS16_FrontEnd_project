@@ -9,7 +9,7 @@ import { getAllProducts } from "../../redux/reducers/productsReducer";
 const FeaturedProducts = ({ type }: {type:string}) => {
     const { products } = useAppSelector((state) => state.productsReducer);
     const dispatch = useAppDispatch();
-
+    
     useEffect(() => {
         dispatch(getAllProducts());
     }, [dispatch]);
@@ -34,7 +34,7 @@ const FeaturedProducts = ({ type }: {type:string}) => {
         </div>
         <div className="bottom">
             {products.slice(0, 4).map((product, index) => (
-                <Card key={product.id} product={product} image={images[index]} />
+                <Card key={product._id.toString()} product={product} />
             ))}
         </div>
         </div>

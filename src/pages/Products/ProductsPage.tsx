@@ -2,7 +2,9 @@ import List from "../../components/List/List";
 import "./Products.scss";
 import useAppSelector from "../../hooks/useAppSelector";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAppDispatch from "../../hooks/useAppDispatch";
+import { getAllProducts } from "../../redux/reducers/productsReducer";
 
 const Products = () => {
     const { catId } = useParams<{ catId: string }>();
@@ -10,6 +12,11 @@ const Products = () => {
     const [sort, setSort] = useState("");
     const [selectedSubCats, setSelectedSubCats] = useState<string[]>([]);
     const { products } = useAppSelector((state) => state.productsReducer);
+    const dispatch = useAppDispatch();
+    
+    useEffect(() => {
+        dispatch(getAllProducts());
+    }, [dispatch]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -26,15 +33,15 @@ const Products = () => {
             <div className="left">
                 <div className="filterItem">
                 <h2>Product Categories</h2>
-                {products?.map((item) => (
-                    <div className="inputItem" key={item.id}>
+                {products?.map((item, index) => (
+                    <div className="inputItem" key={item._id.toString()+index}>
                     <input
                         type="checkbox"
-                        id={item.id}
-                        value={item.id}
+                        id={item._id.toString()}
+                        value={item._id.toString()}
                         onChange={handleChange}
                     />
-                    <label htmlFor={item.id}>{item.name}</label>
+                    <label htmlFor={item.name}>{item.name}</label>
                     </div>
                 ))}
                 </div>

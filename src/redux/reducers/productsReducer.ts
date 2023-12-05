@@ -33,6 +33,20 @@ export const getAllProducts = createAsyncThunk<Product[], void, { rejectValue: s
     }
 );
 
+export const getOneProduct = createAsyncThunk<Product, string, { rejectValue: string }>(
+    'getOneProduct',
+    async (_id: string, {rejectWithValue}) => {
+        try {
+            const response = await axios.get(`${url}/products/${_id}`);
+            const product = response.data;
+            return product;
+        } catch (e) {
+            const error = e as Error;
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 const productsSlice = createSlice({
     name: 'products',
     initialState,
@@ -53,17 +67,27 @@ const productsSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getAllProducts.fulfilled, (state, action) => {
+        builder
+        .addCase(getAllProducts.fulfilled, (state, action) => {
             state.products = action.payload;
             state.loading = false;
-        });
-        builder.addCase(getAllProducts.rejected, (state, action) => {
+        })
+        .addCase(getAllProducts.rejected, (state, action) => {
             state.error = action.payload;
             state.loading = false;
-        });
-        builder.addCase(getAllProducts.pending, (state, action) => {
+        })
+        .addCase(getAllProducts.pending, (state, action) => {
             state.loading = true;
-        });
+        })
+        .addCase(getOneProduct.fulfilled, (state, action) => {
+            state.products.push(action.payload);
+        })
+        .addCase(getOneProduct.rejected, (state, action) => {
+            state.error = action.payload;
+        })
+        .addCase(getOneProduct.pending, (state, action) => {
+            state.loading = true;
+        })
     },
 });
 

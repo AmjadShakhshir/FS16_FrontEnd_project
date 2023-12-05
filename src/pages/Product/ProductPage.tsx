@@ -1,35 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BalanceIcon from "@mui/icons-material/Balance";
-import { Link } from 'react-router-dom';
 
 import './Product.scss'
 import { Box, Button, Divider, Typography } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import useAppDispatch from '../../hooks/useAppDispatch';
+import { getOneProduct } from '../../redux/reducers/productsReducer';
+import useAppSelector from '../../hooks/useAppSelector';
 
 const Product = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const dispatch = useAppDispatch();
+  const params = useParams<{id: string}>();
+  const productId = params.id || '';
+  const product = useAppSelector((state) => state.productsReducer.products.find((product) => product._id.toString() === productId));
+  
+  useEffect(() => {
+    dispatch(getOneProduct(productId));
+  }, [dispatch, productId]);
 
-  const images = [
-    "https://images.pexels.com/photos/1027130/pexels-photo-1027130.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    "https://images.pexels.com/photos/1027131/pexels-photo-1027131.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-  ];
   return (
     <Box className='product'>
       <div className="left">
         <div className="images">
-          <img src={images[0]} alt="" onClick={e=>setSelectedImage(0)}/>
-          <img src={images[1]} alt="" onClick={e=>setSelectedImage(1)}/>
+          <img src={product?.images[0]} alt="" onClick={e=>setSelectedImage(0)}/>
         </div>
         <div className="mainImg">
-          <img src={images[selectedImage]} alt="" />
+          <img src={product?.images[selectedImage]} alt="" />
         </div>
       </div>
       <Box className="right">
-        <Typography variant='h2' fontSize={'4em'}>Title</Typography>
-        <Typography component="span" className='price'>price: $50</Typography>
-        <Typography component="p" className='p'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</Typography>
+        <Typography variant='h2' fontSize={'4em'}>{product?.name}</Typography>
+        <Typography component="span" className='price'>price: ${product?.price}</Typography>
+        <Typography component="p" className='p'>{product?.description}</Typography>
         <Box component='div' className="quantity">
           <Button className='btn' onClick={()=> setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}>-</Button>
           <span>{quantity}</span>
