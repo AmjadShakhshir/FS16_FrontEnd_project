@@ -16,7 +16,7 @@ const Product = () => {
   const dispatch = useAppDispatch();
   const params = useParams<{id: string}>();
   const productId = params.id || '';
-  const product = useAppSelector((state) => state.productsReducer.products.find((product) => product._id.toString() === productId));
+  const product = useAppSelector((state) => state.productsReducer.products.find((product) => product.name === productId));
   
   useEffect(() => {
     dispatch(getOneProduct(productId));

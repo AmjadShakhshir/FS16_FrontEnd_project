@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useAppDispatch from "../../hooks/useAppDispatch";
 import { getAllProducts } from "../../redux/reducers/productsReducer";
+import AddProductForm from "../../components/AddProductForm/AddProductForm";
+import { Typography } from "@mui/material";
 
 const Products = () => {
     const { catId } = useParams<{ catId: string }>();
@@ -34,11 +36,11 @@ const Products = () => {
                 <div className="filterItem">
                 <h2>Product Categories</h2>
                 {products?.map((item, index) => (
-                    <div className="inputItem" key={item._id.toString()+index}>
+                    <div className="inputItem" key={`${item._id} + ${index}`}>
                     <input
                         type="checkbox"
-                        id={item._id.toString()}
-                        value={item._id.toString()}
+                        id={`${item._id} + ${index}`}
+                        value={`${item._id}`}
                         onChange={handleChange}
                     />
                     <label htmlFor={item.name}>{item.name}</label>
@@ -88,6 +90,9 @@ const Products = () => {
                 src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt=""
                 />
+                <Typography variant="h2" pb={2} fontSize="3em">
+                    Products
+                </Typography>
                 <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats}/>
             </div>
         </div>

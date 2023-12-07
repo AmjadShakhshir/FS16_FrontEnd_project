@@ -14,12 +14,6 @@ const FeaturedProducts = ({ type }: {type:string}) => {
         dispatch(getAllProducts());
     }, [dispatch]);
 
-    const images = [
-    "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/3259600/pexels-photo-3259600.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"];
-
     return (
         <div className="featuredProducts">
         <div className="top">
@@ -34,7 +28,7 @@ const FeaturedProducts = ({ type }: {type:string}) => {
         </div>
         <div className="bottom">
             {products.slice(0, 4).map((product, index) => (
-                <Card key={product._id.toString()} product={product} />
+                <Card key={`${product._id} + ${index}`} product={product} />
             ))}
         </div>
         </div>

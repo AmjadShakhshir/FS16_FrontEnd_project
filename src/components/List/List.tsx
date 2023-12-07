@@ -10,7 +10,7 @@ const List = ({ subCats, maxPrice, sort, catId }: { subCats: string[], maxPrice:
     <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent:"space-between" }}>
       {loading
         ? "loading"
-        : products?.map((item, index) => <Card product={item} key={item._id.toString()+index} />)}
+        : products?.map((item, index) => <Card product={item} key={`${item._id} + ${index}`} />)}
     </Box>
   )
 }

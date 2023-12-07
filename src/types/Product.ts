@@ -6,4 +6,6 @@ export interface Product {
     description: string;
     images: string[];
     stock: number;
-    }
+}
+
+export type AddProductRequest = Omit<Product, '_id'>;

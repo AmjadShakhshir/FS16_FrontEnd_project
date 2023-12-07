@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { Product } from '../../types/Product';
+import { AddProductRequest, Product } from '../../types/Product';
 import { GetAllQueries } from '../../types/GetAllQueries';
 import { url } from '../../common/common';
 
@@ -40,6 +40,19 @@ export const getOneProduct = createAsyncThunk<Product, string, { rejectValue: st
             const response = await axios.get(`${url}/products/${_id}`);
             const product = response.data;
             return product;
+        } catch (e) {
+            const error = e as Error;
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const addProduct = createAsyncThunk<Product, AddProductRequest, { rejectValue: string}>(
+    'addProduct',
+    async (product: AddProductRequest, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${url}/products`, product);
+            return response.data;
         } catch (e) {
             const error = e as Error;
             return rejectWithValue(error.message);
@@ -86,6 +99,15 @@ const productsSlice = createSlice({
             state.error = action.payload;
         })
         .addCase(getOneProduct.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(addProduct.fulfilled, (state, action) => {
+            state.products.push(action.payload);
+        })
+        .addCase(addProduct.rejected, (state, action) => {
+            state.error = action.payload;
+        })
+        .addCase(addProduct.pending, (state, action) => {
             state.loading = true;
         })
     },
