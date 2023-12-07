@@ -1,8 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { AddProductRequest, Product } from '../../types/Product';
-import { GetAllQueries } from '../../types/GetAllQueries';
+import { AddProductRequest, Product } from './types/Product';
+import { GetAllQueries } from './types/GetAllQueries';
 import { url } from '../../common/common';
 
 export const initialState: {

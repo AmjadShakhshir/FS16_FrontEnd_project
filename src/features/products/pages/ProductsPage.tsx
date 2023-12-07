@@ -1,11 +1,10 @@
-import List from "../../components/List/List";
+import List from "../../../common/components/List/List";
 import "./Products.scss";
-import useAppSelector from "../../hooks/useAppSelector";
+import useAppSelector from "../../../common/hooks/useAppSelector";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useAppDispatch from "../../hooks/useAppDispatch";
-import { getAllProducts } from "../../redux/reducers/productsReducer";
-import AddProductForm from "../../components/AddProductForm/AddProductForm";
+import useAppDispatch from "../../../common/hooks/useAppDispatch";
+import { getAllProducts } from "../productsReducer";
 import { Typography } from "@mui/material";
 
 const Products = () => {

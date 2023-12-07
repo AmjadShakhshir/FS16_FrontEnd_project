@@ -6,9 +6,9 @@ import BalanceIcon from "@mui/icons-material/Balance";
 import './Product.scss'
 import { Box, Button, Divider, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import useAppDispatch from '../../hooks/useAppDispatch';
-import { getOneProduct } from '../../redux/reducers/productsReducer';
-import useAppSelector from '../../hooks/useAppSelector';
+import useAppDispatch from '../../../common/hooks/useAppDispatch';
+import { getOneProduct } from '../productsReducer';
+import useAppSelector from '../../../common/hooks/useAppSelector';
 
 const Product = () => {
   const [selectedImage, setSelectedImage] = useState(0);

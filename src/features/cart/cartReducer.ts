@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Product } from "../../types/Product";
-import { CartItem } from "../../types/CartItem";
+import { Product } from "../products/types/Product";
+import { CartItem } from "./CartItem";
 import { ObjectId } from "mongodb";
 
 const initialState: CartItem[] = [];

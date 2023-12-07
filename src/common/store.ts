@@ -11,8 +11,8 @@ import {
     REGISTER,
 } from "redux-persist";
 
-import productsReducer from "./reducers/productsReducer";
-import cartReducer from "./reducers/cartReducer";
+import productsReducer from "../features/products/productsReducer";
+import cartReducer from "../features/cart/cartReducer";
 
 const persistConfig = {
     key: 'root',

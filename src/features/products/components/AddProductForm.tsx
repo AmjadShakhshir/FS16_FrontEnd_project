@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, TextField } from '@mui/material'
 import React, { useState } from 'react'
-import useAppDispatch from '../../hooks/useAppDispatch';
-import { addProduct } from '../../redux/reducers/productsReducer';
+import useAppDispatch from '../../../common/hooks/useAppDispatch';
+import { addProduct } from '../productsReducer';
 
 const AddProductForm = () => {
     const dispatch = useAppDispatch();

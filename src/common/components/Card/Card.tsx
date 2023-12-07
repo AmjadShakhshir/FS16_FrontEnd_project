@@ -4,7 +4,7 @@ import { CardMedia } from '@mui/material';
 import { Box } from "@mui/material";
 
 import "./Card.scss";
-import { Product } from "../../types/Product";
+import { Product } from "../../../features/products/types/Product";
 
 const Card = ({ product }: { product: Product}) => {
   return (

@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 import useAppDispatch from "../../hooks/useAppDispatch";
 import "./FeaturedProducts.scss";
 import useAppSelector from "../../hooks/useAppSelector";
-import { getAllProducts } from "../../redux/reducers/productsReducer";
+import { getAllProducts } from "../../../features/products/productsReducer";
 
 const FeaturedProducts = ({ type }: {type:string}) => {
     const { products } = useAppSelector((state) => state.productsReducer);
