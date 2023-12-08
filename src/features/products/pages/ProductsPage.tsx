@@ -1,11 +1,12 @@
-import List from "../../../common/components/List/List";
-import "./Products.scss";
-import useAppSelector from "../../../common/hooks/useAppSelector";
-import { useParams } from "react-router-dom";
+import { Button, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+
+import List from "../../../common/components/List/List";
+import "../style/Products.scss";
+import useAppSelector from "../../../common/hooks/useAppSelector";
 import useAppDispatch from "../../../common/hooks/useAppDispatch";
 import { getAllProducts } from "../productsReducer";
-import { Typography } from "@mui/material";
 
 const Products = () => {
     const { catId } = useParams<{ catId: string }>();
@@ -14,6 +15,7 @@ const Products = () => {
     const [selectedSubCats, setSelectedSubCats] = useState<string[]>([]);
     const { products } = useAppSelector((state) => state.productsReducer);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     
     useEffect(() => {
         dispatch(getAllProducts());
@@ -89,6 +91,9 @@ const Products = () => {
                 src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt=""
                 />
+                <Button className="addProduct" onClick={() => navigate("/products/addProduct")}>
+                    Add Product
+                </Button>
                 <Typography variant="h2" pb={2} fontSize="3em">
                     Products
                 </Typography>

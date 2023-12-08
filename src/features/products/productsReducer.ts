@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { AddProductRequest, Product } from './types/Product';
+import { AddProductRequest, Product, UpdateProductRequest } from './types/Product';
 import { GetAllQueries } from './types/GetAllQueries';
 import { url } from '../../common/common';
 
@@ -59,6 +59,7 @@ export const addProduct = createAsyncThunk<Product, AddProductRequest, { rejectV
         }
     }
 );
+
 
 const productsSlice = createSlice({
     name: 'products',

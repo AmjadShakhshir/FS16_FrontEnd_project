@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BalanceIcon from "@mui/icons-material/Balance";
-
-import './Product.scss'
 import { Box, Button, Divider, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
+
+import '../style/Product.scss'
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
 import { getOneProduct } from '../productsReducer';
 import useAppSelector from '../../../common/hooks/useAppSelector';
@@ -16,7 +16,7 @@ const Product = () => {
   const dispatch = useAppDispatch();
   const params = useParams<{id: string}>();
   const productId = params.id || '';
-  const product = useAppSelector((state) => state.productsReducer.products.find((product) => product.name === productId));
+  const product = useAppSelector((state) => state.productsReducer.products.find((product) => product._id.toString() === productId));
   
   useEffect(() => {
     dispatch(getOneProduct(productId));

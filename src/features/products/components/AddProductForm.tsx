@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, TextField } from '@mui/material'
+import { Box, Button, FormControl, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
 import { addProduct } from '../productsReducer';
@@ -45,8 +45,16 @@ const AddProductForm = () => {
         setImages([]);
     }
   return (
-    <Box component="div" sx={{ display: 'flex', flexDirection: 'column' }}>
-      <FormControl sx={{ m: 1, width:'300px' }} variant="standard">
+    <Box component="div" sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        }}>
+
+        <Typography variant="h4" component="h4" sx={{m: 2}}>Add Product</Typography>
+        
+        <FormControl sx={{ m: 1, width:'300px' }} variant="standard">
             <TextField
             id="name"
             label="Name"
