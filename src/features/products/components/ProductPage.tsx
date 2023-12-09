@@ -3,7 +3,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BalanceIcon from "@mui/icons-material/Balance";
 import { Box, Button, Divider, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import '../style/Product.scss'
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
@@ -14,10 +14,10 @@ const Product = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const params = useParams<{id: string}>();
   const productId = params.id || '';
   const product = useAppSelector((state) => state.productsReducer.products.find((product) => product._id.toString() === productId));
-  
   useEffect(() => {
     dispatch(getOneProduct(productId));
   }, [dispatch, productId]);
@@ -51,6 +51,11 @@ const Product = () => {
           </Box>
           <Box component='div' className="item">
             <BalanceIcon /> Add To Compare
+          </Box>
+          <Box component='div' className="item">
+            <Button className="updateProduct" onClick={() => navigate(`/updateProduct/${product?._id}`, { state: { product } })}>
+                Update Product
+            </Button>
           </Box>
         </Box>
         <Box component='div' className="info">

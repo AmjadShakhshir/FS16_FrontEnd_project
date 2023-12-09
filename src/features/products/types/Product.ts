@@ -11,12 +11,13 @@ export interface Product {
 export type AddProductRequest = Omit<Product, '_id'>;
 
 export interface UpdateProductDto {
-    title: string;
+    name: string;
     price: number;
     description: string;
-    categoryId: number;
+    images: string[];
+    stock: number;
 }
 export interface UpdateProductRequest {
-    _id: ObjectId;
+    _id: string;
     update: UpdateProductDto;
 }

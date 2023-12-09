@@ -6,6 +6,7 @@ import ProductsPage from './features/products/pages/ProductsPage';
 import ErrorPage from './common/pages/Error/ErrorPage';
 import ProductPage from './features/products/components/ProductPage';
 import AddProductForm from './features/products/components/AddProductForm';
+import UpdateProductForm from './features/products/components/UpdateProductForm';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -28,7 +29,11 @@ const App = () => {
         {
           path: 'addProduct',
           element: <AddProductForm />
-        }
+        },
+        {
+          path: 'updateProduct/:id',
+          element: <UpdateProductForm />
+        },
       //   {
       //     path: 'register',
       //     element: <RegisterPage />
