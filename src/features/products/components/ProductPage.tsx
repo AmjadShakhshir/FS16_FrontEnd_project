@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import '../style/Product.scss'
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
-import { getOneProduct } from '../productsReducer';
+import { deleteProduct, getOneProduct } from '../productsReducer';
 import useAppSelector from '../../../common/hooks/useAppSelector';
 
 const Product = () => {
@@ -21,6 +21,13 @@ const Product = () => {
   useEffect(() => {
     dispatch(getOneProduct(productId));
   }, [dispatch, productId]);
+
+  const onDeleteProduct = () => {
+    if (window.confirm('Are you sure you want to delete this product?')){
+      dispatch(deleteProduct(productId));
+      navigate('/products');
+    }
+  }
 
   return (
     <Box className='product'>
@@ -56,6 +63,7 @@ const Product = () => {
             <Button className="updateProduct" onClick={() => navigate(`/updateProduct/${product?._id}`, { state: { product } })}>
                 Update Product
             </Button>
+            <Button variant="contained" color="error" onClick={onDeleteProduct}>Delete</Button>
           </Box>
         </Box>
         <Box component='div' className="info">

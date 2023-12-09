@@ -74,6 +74,18 @@ export const updateProduct = createAsyncThunk<Product, UpdateProductRequest, { r
     }
 );
 
+export const deleteProduct = createAsyncThunk<string, string, { rejectValue: string }>(
+    'deleteProduct',
+    async (_id: string, { rejectWithValue }) => {
+        try {
+            await axios.delete<boolean>(`${url}/products/${_id}`);
+            return _id;
+        } catch (e) {
+            const error = e as Error;
+            return rejectWithValue(error.message);
+        }
+    }
+);
 const productsSlice = createSlice({
     name: 'products',
     initialState,
@@ -126,7 +138,6 @@ const productsSlice = createSlice({
         })
         .addCase(updateProduct.fulfilled, (state, action) => {
             const updatedProduct = action.payload;
-            console.log(updatedProduct)
             const index = state.products.findIndex(product => product._id === updatedProduct._id);
             state.products[index] = updatedProduct;
         })
@@ -134,6 +145,17 @@ const productsSlice = createSlice({
             state.error = action.payload;
         })
         .addCase(updateProduct.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(deleteProduct.fulfilled, (state, action) => {
+            const _id = action.payload;
+            const index = state.products.findIndex(product => product._id.toString() === _id);
+            state.products.splice(index, 1);
+        })
+        .addCase(deleteProduct.rejected, (state, action) => {
+            state.error = action.payload;
+        })
+        .addCase(deleteProduct.pending, (state, action) => {
             state.loading = true;
         })
     },

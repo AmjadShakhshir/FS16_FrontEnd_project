@@ -37,10 +37,10 @@ const Products = () => {
                 <div className="filterItem">
                 <h2>Product Categories</h2>
                 {products?.map((item, index) => (
-                    <div className="inputItem" key={`${item._id} + ${index}`}>
+                    <div className="inputItem" key={`${item._id}${index}`}>
                     <input
                         type="checkbox"
-                        id={`${item._id} + ${index}`}
+                        id={`${item._id}${index}`}
                         value={`${item._id}`}
                         onChange={handleChange}
                     />
