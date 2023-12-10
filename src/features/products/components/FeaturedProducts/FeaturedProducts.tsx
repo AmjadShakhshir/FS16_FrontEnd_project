@@ -13,7 +13,7 @@ const FeaturedProducts = ({ type }: {type:string}) => {
     useEffect(() => {
         dispatch(getAllProducts({
             page: 1,
-            limit: 4,
+            limit: "4",
         }));
     }, [dispatch]);
 

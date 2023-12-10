@@ -7,6 +7,7 @@ import "../style/Products.scss";
 import useAppSelector from "../../../common/hooks/useAppSelector";
 import useAppDispatch from "../../../common/hooks/useAppDispatch";
 import { getAllProducts, sortProducts } from "../productsReducer";
+import { getAllCategories } from "../../categories/categoriesReducer";
 
 const Products = () => {
     const [maxPrice, setMaxPrice] = useState(1000);
@@ -14,16 +15,19 @@ const Products = () => {
     const [sort, setSort] = useState("asc");
     const [limit, setLimit] = useState("10");
     const { catId } = useParams<{ catId: string }>();
-    const { products } = useAppSelector((state) => state.productsReducer);
-    
+    const { categories } = useAppSelector((state) => state.categoriesReducer);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     
     useEffect(() => {
         dispatch(getAllProducts({
             page: 1,
-            limit: 10,
+            limit: limit,
         }));
+    }, [dispatch, limit]);
+
+    useEffect(() => {
+        dispatch(getAllCategories());
     }, [dispatch]);
 
     const handleLimitChange = (e: SelectChangeEvent) => {
@@ -54,7 +58,7 @@ const Products = () => {
             <div className="left">
                 <div className="filterItem">
                 <h2>Product Categories</h2>
-                {products?.map((item, index) => (
+                {categories?.map((item, index) => (
                     <div className="inputItem" key={`${item._id}${index}`}>
                     <input
                         type="checkbox"
@@ -127,8 +131,8 @@ const Products = () => {
                         label="Limit"
                         onChange={handleLimitChange}
                         >
+                        <MenuItem value={"5"}>5</MenuItem>
                         <MenuItem value={"10"}>10</MenuItem>
-                        <MenuItem value={"20"}>20</MenuItem>
                         <MenuItem value={"30"}>30</MenuItem>
                         <MenuItem value={"50"}>50</MenuItem>
                         <MenuItem value={"100"}>100</MenuItem>

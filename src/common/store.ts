@@ -13,16 +13,18 @@ import {
 
 import productsReducer from "../features/products/productsReducer";
 import cartReducer from "../features/cart/cartReducer";
+import categoriesReducer from "../features/categories/categoriesReducer";
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['products']
+    blacklist: ['products', 'categories']
 };
 
 const rootReducer = combineReducers({
     productsReducer,
-    cartReducer
+    cartReducer,
+    categoriesReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
