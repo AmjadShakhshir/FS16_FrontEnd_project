@@ -1,27 +1,45 @@
-import { Button, Typography } from "@mui/material";
+import { Box, Button, FormControl, MenuItem, Pagination, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import List from "../../../common/components/List/List";
+import List from "../components/List/List";
 import "../style/Products.scss";
 import useAppSelector from "../../../common/hooks/useAppSelector";
 import useAppDispatch from "../../../common/hooks/useAppDispatch";
-import { getAllProducts } from "../productsReducer";
+import { getAllProducts, sortProducts } from "../productsReducer";
 
 const Products = () => {
-    const { catId } = useParams<{ catId: string }>();
     const [maxPrice, setMaxPrice] = useState(1000);
-    const [sort, setSort] = useState("");
     const [selectedSubCats, setSelectedSubCats] = useState<string[]>([]);
+    const [sort, setSort] = useState("asc");
+    const [limit, setLimit] = useState("10");
+    const { catId } = useParams<{ catId: string }>();
     const { products } = useAppSelector((state) => state.productsReducer);
+    
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     
     useEffect(() => {
-        dispatch(getAllProducts());
+        dispatch(getAllProducts({
+            page: 1,
+            limit: 10,
+        }));
     }, [dispatch]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleLimitChange = (e: SelectChangeEvent) => {
+        setLimit(e.target.value);
+    }
+
+    const handleSort = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if (value === "desc"){
+            dispatch(sortProducts("desc"));
+        } else {
+            dispatch(sortProducts("asc"));
+        }
+    }
+
+    const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         const isChecked: boolean = e.target.checked || false;
 
@@ -42,7 +60,7 @@ const Products = () => {
                         type="checkbox"
                         id={`${item._id}${index}`}
                         value={`${item._id}`}
-                        onChange={handleChange}
+                        onChange={handleCheckedChange}
                     />
                     <label htmlFor={item.name}>{item.name}</label>
                     </div>
@@ -69,7 +87,10 @@ const Products = () => {
                     id="asc"
                     value="asc"
                     name="price"
-                    onChange={(e) => setSort("asc")}
+                    onChange={(e) =>{
+                        setSort("asc");
+                        handleSort(e)
+                    } }
                     />
                     <label htmlFor="asc">Price (Lowest first)</label>
                 </div>
@@ -79,7 +100,10 @@ const Products = () => {
                     id="desc"
                     value="desc"
                     name="price"
-                    onChange={(e) => setSort("desc")}
+                    onChange={(e) => {
+                        handleSort(e)
+                        setSort("desc");
+                    }}
                     />
                     <label htmlFor="desc">Price (Highest first)</label>
                 </div>
@@ -91,13 +115,32 @@ const Products = () => {
                 src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt=""
                 />
-                <Button className="addProduct" onClick={() => navigate("/products/addProduct")}>
-                    Add Product
-                </Button>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                    <Button className="addProduct" onClick={() => navigate("/products/addProduct")}>
+                        Add Product
+                    </Button>
+                    <FormControl>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={limit}
+                        label="Limit"
+                        onChange={handleLimitChange}
+                        >
+                        <MenuItem value={"10"}>10</MenuItem>
+                        <MenuItem value={"20"}>20</MenuItem>
+                        <MenuItem value={"30"}>30</MenuItem>
+                        <MenuItem value={"50"}>50</MenuItem>
+                        <MenuItem value={"100"}>100</MenuItem>
+                        <MenuItem value={"all"}>All</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
                 <Typography variant="h2" pb={2} fontSize="3em">
                     Products
                 </Typography>
                 <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats}/>
+                <Pagination count={10} variant="outlined" shape="rounded" />
             </div>
         </div>
     );

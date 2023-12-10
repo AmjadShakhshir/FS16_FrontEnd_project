@@ -20,11 +20,11 @@ export interface ProductState {
     status: "idle" | "loading" | "failed",
 };
 
-export const getAllProducts = createAsyncThunk<Product[], void, { rejectValue: string }>(
+export const getAllProducts = createAsyncThunk<Product[], GetAllQueries, { rejectValue: string }>(
     'getAllProducts',
-    async (_, {rejectWithValue}) => {
+    async (options: GetAllQueries, {rejectWithValue}) => {
         try {
-            const response = await axios.get(`${url}/products`)
+            const response = await axios.get(`${url}/products?page=${options.page}&limit=${options.limit}`)
             return response.data;
         } catch (e) {
             const error = e as Error;

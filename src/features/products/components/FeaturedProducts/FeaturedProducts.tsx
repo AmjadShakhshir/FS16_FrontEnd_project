@@ -1,17 +1,20 @@
 import { useEffect } from "react";
 
-import Card from "../Card/Card";
-import useAppDispatch from "../../hooks/useAppDispatch";
+import Card from "../../../../common/components/Card/Card";
+import useAppDispatch from "../../../../common/hooks/useAppDispatch";
 import "./FeaturedProducts.scss";
-import useAppSelector from "../../hooks/useAppSelector";
-import { getAllProducts } from "../../../features/products/productsReducer";
+import useAppSelector from "../../../../common/hooks/useAppSelector";
+import { getAllProducts } from "../../productsReducer";
 
 const FeaturedProducts = ({ type }: {type:string}) => {
     const { products } = useAppSelector((state) => state.productsReducer);
     const dispatch = useAppDispatch();
     
     useEffect(() => {
-        dispatch(getAllProducts());
+        dispatch(getAllProducts({
+            page: 1,
+            limit: 4,
+        }));
     }, [dispatch]);
 
     return (
