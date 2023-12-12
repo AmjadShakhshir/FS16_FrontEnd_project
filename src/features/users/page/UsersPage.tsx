@@ -23,7 +23,15 @@ const UsersPage = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: '950px', m: '20px auto' }}>
-        <Typography variant='h4' sx={{ m: '10px auto' }}>Users</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h4" component="h4" gutterBottom>
+                Users
+            </Typography>
+            <Button
+            onClick={() => navigate('/users/addUser')}
+            variant="contained"
+            >Add User</Button>
+        </Box>
         <TableContainer component={Paper}>
             <Table sx={{ m: '0px auto' }} aria-label="simple table">
                 <TableHead>
