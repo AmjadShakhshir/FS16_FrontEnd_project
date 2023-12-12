@@ -3,22 +3,17 @@ import { User } from "./types/User";
 import axios from "axios";
 import { url } from "../../common/common";
 
-export const initialState:{
-    users: User[],
-    loading: boolean,
-    error: string,
+export const initialState: {
+    users: User[];
+    error: string | undefined;
+    loading: boolean;
 } = {
     users: [],
     loading: false,
-    error: '',
+    error: ''
 };
 
-export type UserStatus = {
-    Users: [],
-    status: "idle" | "loading" | "failed",
-};
-
-export const getAllUsers = createAsyncThunk<User[], void, {rejectValue: string}>(
+export const getAllUsers = createAsyncThunk<User[], void, { rejectValue: string }>(
     'getAllUsers',
     async (_, {rejectWithValue}) => {
         try {
@@ -36,7 +31,8 @@ const usersSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getAllUsers.pending, (state) => {
+        builder
+        .addCase(getAllUsers.pending, (state) => {
             state.loading = true;
         })
         .addCase(getAllUsers.fulfilled, (state, action) => {
@@ -45,7 +41,7 @@ const usersSlice = createSlice({
         })
         .addCase(getAllUsers.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload as string;
+            state.error = action.payload;
         })
     }
 });

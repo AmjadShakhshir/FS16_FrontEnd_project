@@ -19,14 +19,14 @@ import usersReducer from "../features/users/usersReducer";
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['products', 'categories', 'users']
+    blacklist: ['categories', 'users', 'products']
 };
 
 const rootReducer = combineReducers({
     productsReducer,
     cartReducer,
     categoriesReducer,
-    usersReducer,
+    usersReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

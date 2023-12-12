@@ -2,13 +2,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Root from './common/pages/Root/Root';
 import HomePage from './common/pages/Home/HomePage';
-import ProductsPage from './features/products/pages/ProductsPage';
+import ProductsPage from './features/products/page/ProductsPage';
 import ErrorPage from './common/pages/Error/ErrorPage';
 import ProductPage from './features/products/components/ProductPage';
 import AddProductForm from './features/products/components/AddProductForm';
 import UpdateProductForm from './features/products/components/UpdateProductForm';
 import CategoriesPage from './features/categories/page/CategoriesPage';
 import AddCategoryForm from './features/categories/components/AddCategoryForm';
+import UsersPage from './features/users/page/UsersPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -47,7 +48,7 @@ const App = () => {
         {
           path: 'categories/updateCategory/:id',
           element: <UpdateProductForm />
-        }
+        },
       //   {
       //     path: 'register',
       //     element: <RegisterPage />
@@ -60,10 +61,10 @@ const App = () => {
       //   path:'profile',
       //   element: <ProfilePage />
       // },
-      // {
-      //   path: 'users',
-      //   element: <UsersPage />,
-      // },
+      {
+        path: 'users',
+        element: <UsersPage />,
+      },
       ]
     },
       {

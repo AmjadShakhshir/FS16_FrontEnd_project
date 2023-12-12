@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { updateCategory } from '../categoriesReducer';
@@ -32,7 +32,7 @@ const UpdateCategoryForm = () => {
         navigate(`/categories`);
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (categoryParams.state) {
             setName(categoryParams.state.category.name);
             setImages(categoryParams.state.category.images);
