@@ -1,12 +1,18 @@
-import { Box, Button, FormControl, Paper, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Button, FormControl, Link, Paper, TextField, Typography } from '@mui/material'
+import React, { useState } from 'react';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+
+import useAppDispatch from '../../../common/hooks/useAppDispatch';
+import { addUser } from '../usersReducer';
 
 const AddUserForm = () => {
-  const [name, setName] = React.useState('')
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [confirmPassword, setConfirmPassword] = React.useState('')
-  const [role, setRole] = React.useState('')
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const dispatch = useAppDispatch();
+
+  const canSave = [name, email, password, confirmPassword].every(Boolean);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
@@ -24,18 +30,21 @@ const AddUserForm = () => {
     setConfirmPassword(event.target.value)
   }
 
-  const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRole(event.target.value)
-  }
-
   const handleAddUser = () => {
     if (password !== confirmPassword) {
       alert('Passwords do not match')
       return
     }
-    alert(`User ${name} added`)
+    dispatch(addUser({
+      name,
+      email,
+      password,
+    }))
+    setName('')
+    setEmail('')
+    setPassword('')
+    setConfirmPassword('')
   }
-
 
   return (
     <Box 
@@ -72,6 +81,7 @@ const AddUserForm = () => {
 
             <TextField
             id="password"
+            type="password"
             label="Password"
             variant="standard"
             value={password}
@@ -81,26 +91,32 @@ const AddUserForm = () => {
             <TextField
             id="confirmPassword"
             label="Confirm Password"
+            type="password"
             variant="standard"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             />
 
-            <TextField
-            id="role"
-            label="Role"
-            variant="standard"
-            value={role}
-            onChange={handleRoleChange}
-            />
-
             <Button
             variant="contained"
             onClick={handleAddUser}
+            disabled={!canSave}
+            type='submit'
+            sx={{ mt: '20px' }}
             >
             Add User
             </Button>
         </FormControl>
+        <Link href='/users' sx={{ display: 'flex',mt: '20px', textDecoration: 'none' }}>
+          <ArrowBackIosNewIcon />
+          <Typography
+          variant="body1"
+          component="span"
+          sx={{ ml: '5px' }}
+          >
+            Back to Users
+          </Typography>
+        </Link>
     </Box>
   )
 }
