@@ -7,7 +7,7 @@ import ErrorPage from './common/pages/Error/ErrorPage';
 import ProductPage from './features/products/components/ProductPage';
 import AddProductForm from './features/products/components/AddProductForm';
 import UpdateProductForm from './features/products/components/UpdateProductForm';
-import CategoriesPage from './features/categories/pages/CategoriesPage';
+import CategoriesPage from './features/categories/page/CategoriesPage';
 import AddCategoryForm from './features/categories/components/AddCategoryForm';
 
 const App = () => {
