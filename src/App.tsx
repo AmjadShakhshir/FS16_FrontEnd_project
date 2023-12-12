@@ -43,6 +43,10 @@ const App = () => {
         {
           path: 'categories/addCategory',
           element: <AddCategoryForm />
+        },
+        {
+          path: 'categories/updateCategory/:id',
+          element: <UpdateProductForm />
         }
       //   {
       //     path: 'register',

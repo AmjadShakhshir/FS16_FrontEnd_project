@@ -29,6 +29,7 @@ const AddCategoryForm = () => {
         ));
         setName('');
         setImages([]);
+        navigate('/categories');
     }
   return (
     <Box component="div" sx={{

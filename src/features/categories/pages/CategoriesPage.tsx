@@ -21,14 +21,14 @@ const CategoriesPage = () => {
     }
     }
     return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', mx: '20px' }}>
+    <Box sx={{ display: 'flex', maxWidth: '950px', m: '20px auto' }}>
         <TableContainer component={Paper}>
         <Button
         variant="contained"
         sx={{ mb: '20px' }}
         onClick={() => navigate('/categories/addCategory')}
         >Add Category</Button>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ m: '0px auto' }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
                     <TableCell>Category Name</TableCell>
@@ -47,7 +47,9 @@ const CategoriesPage = () => {
                         </TableCell>
                         <TableCell align="right">{category.images && category.images[0]}</TableCell>
                         <TableCell align="right">
-                            <Button >Edit</Button>
+                            <Button
+                            onClick={()=> navigate(`/categories/updateCategory/${String(category._id)}`)}
+                            >Edit</Button>
                             <Button
                             color='error'
                             onClick={() => onDeleteCategory(String(category._id))}

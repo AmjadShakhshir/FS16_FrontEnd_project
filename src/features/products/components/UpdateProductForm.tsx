@@ -49,12 +49,16 @@ const UpdateProductForm = () => {
     }
 
     useEffect(() => {
-        setName(productParams.state.product.name);
-        setPrice(productParams.state.product.price);
-        setDescription(productParams.state.product.description);
-        setStock(productParams.state.product.stock);
-        setImages(productParams.state.product.images);
-    }, [productParams.state.product]);
+        if (productParams.state) {
+            setName(productParams.state.product.name);
+            setPrice(productParams.state.product.price);
+            setDescription(productParams.state.product.description);
+            setStock(productParams.state.product.stock);
+            setImages(productParams.state.product.images);
+        } else {
+            navigate(`/products`);
+        }
+    }, [productParams.state, navigate]);
 
     return (
     <Box component="div" sx={{

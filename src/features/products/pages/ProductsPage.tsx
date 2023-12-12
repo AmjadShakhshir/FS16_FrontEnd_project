@@ -69,6 +69,13 @@ const Products = () => {
                     <label htmlFor={item.name}>{item.name}</label>
                     </div>
                 ))}
+                <Button
+                className="filterBtn"
+                variant="contained"
+                onClick={() => navigate("/categories")}
+                >
+                    Manage Categories
+                </Button>
                 </div>
                 <div className="filterItem">
                 <h2>Filter by price</h2>
