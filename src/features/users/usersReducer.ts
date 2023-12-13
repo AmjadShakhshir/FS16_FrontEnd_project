@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AddUserRequest, User } from "./types/User";
+import { AddUserRequest, UpdateUserRequest, User } from "./types/User";
 import axios from "axios";
 import { url } from "../../common/common";
 
@@ -31,6 +31,19 @@ export const addUser = createAsyncThunk<User, AddUserRequest, { rejectValue: str
     async (user, {rejectWithValue}) => {
         try {
             const response = await axios.post(`${url}/users/signup`, user);
+            return response.data;
+        } catch (e) {
+            const error = e as Error;
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const updateUser = createAsyncThunk<User, UpdateUserRequest, { rejectValue: string }>(
+    'updateUser',
+    async (user, {rejectWithValue}) => {
+        try {
+            const response = await axios.put(`${url}/users/${user._id}`, user);
             return response.data;
         } catch (e) {
             const error = e as Error;
@@ -77,6 +90,17 @@ const usersSlice = createSlice({
             state.users.push(action.payload);
         })
         .addCase(addUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+        .addCase(updateUser.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(updateUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.users = state.users.map(user => user._id === action.payload._id ? action.payload : user);
+        })
+        .addCase(updateUser.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         })

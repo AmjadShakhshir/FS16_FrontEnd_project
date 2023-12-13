@@ -15,9 +15,6 @@ export interface UpdateUserDto {
     name: string;
     email: string;
     password: string;
-    roleId: ObjectId;
-    logInWithGoogle: boolean;
-    token: string;
 };
 
 export type UpdateUserRequest = {

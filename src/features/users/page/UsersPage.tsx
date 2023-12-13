@@ -58,7 +58,7 @@ const UsersPage = () => {
                             <TableCell align="right">{}</TableCell>
                             <TableCell align="right">
                                 <Button
-                                onClick={()=> navigate(`/users/updateUser/${String(user._id)}`)}
+                                onClick={()=> navigate(`/users/updateUser/${String(user._id)}`, { state: { user } })}
                                 >Edit</Button>
                                 <Button
                                 color='error'

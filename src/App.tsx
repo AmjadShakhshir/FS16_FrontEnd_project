@@ -11,6 +11,7 @@ import CategoriesPage from './features/categories/page/CategoriesPage';
 import AddCategoryForm from './features/categories/components/AddCategoryForm';
 import UsersPage from './features/users/page/UsersPage';
 import AddUserForm from './features/users/components/AddUserForm';
+import UpdateUserForm from './features/users/components/UpdateUserForm';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -70,10 +71,10 @@ const App = () => {
         path: 'users/addUser',
         element: <AddUserForm />
       },
-      // {
-      //   path: 'users/updateUser/:id',
-      //   element: <UpdateUserForm />
-      // },
+      {
+        path: 'users/updateUser/:id',
+        element: <UpdateUserForm />
+      },
       ]
     },
       {
