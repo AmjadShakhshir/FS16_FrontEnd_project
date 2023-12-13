@@ -14,9 +14,6 @@ const UpdateUserForm = () => {
     const userId = params.id || '';
     const navigate = useNavigate();
     const userParams = useLocation();
-    console.log(userParams)
-    console.log('id', userId)
-    console.log('params', params)
 
     const canSave = [name, email, password, confirmPassword].every(Boolean);
 
