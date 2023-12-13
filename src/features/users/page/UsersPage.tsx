@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import useAppSelector from '../../../common/hooks/useAppSelector';
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
-import { getAllUsers } from '../usersReducer';
+import { deleteUser, getAllUsers } from '../usersReducer';
 
 const UsersPage = () => {
     const navigate = useNavigate();
@@ -12,13 +12,16 @@ const UsersPage = () => {
     const { users } = useAppSelector(state => state.usersReducer);
 
     useEffect(() => {
-        if (users.length === 0) {
+        if (users.length >= 0) {
             dispatch(getAllUsers());
         }
     }, [dispatch, users.length]);
     
     const onDeleteUser = (userId: string) => {
-        console.log(userId)
+        if (window.confirm('Are you sure you want to delete this user?')){
+            dispatch(deleteUser(userId));
+            navigate('/users');
+        }
     }
 
   return (

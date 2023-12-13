@@ -5,7 +5,7 @@ export interface User {
     name: string;
     email: string;
     password: string;
-    logInWithGoogle?: boolean;
+    logInWithGoogle: boolean;
     token?: string;
 };
 

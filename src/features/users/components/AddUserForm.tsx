@@ -39,6 +39,7 @@ const AddUserForm = () => {
       name,
       email,
       password,
+      logInWithGoogle: false,
     }))
     setName('')
     setEmail('')
