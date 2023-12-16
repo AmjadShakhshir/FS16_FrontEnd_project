@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
-import { addUser } from '../usersReducer';
+import { signup } from '../usersReducer';
 
 const AddUserForm = () => {
   const [name, setName] = useState('');
@@ -35,7 +35,7 @@ const AddUserForm = () => {
       alert('Passwords do not match')
       return
     }
-    dispatch(addUser({
+    dispatch(signup({
       name,
       email,
       password,

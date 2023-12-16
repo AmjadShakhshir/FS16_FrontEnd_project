@@ -1,35 +1,36 @@
 import { Box, Button, FormControl, Paper, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { updateUser } from '../usersReducer';
 
 const UpdateUserForm = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [userInformation, setUserInformation] = useState({
+        name: '',
+        email: '',
+        password: '',
+    });
     const [confirmPassword, setConfirmPassword] = useState('');
     const dispatch = useAppDispatch();
     const params = useParams<{id: string}>();
     const userId = params.id || '';
     const navigate = useNavigate();
-    const userParams = useLocation();
 
-    const canSave = [name, email, password, confirmPassword].every(Boolean);
+    const canSave = [].every(Boolean);
 
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value)
+    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.name === 'password') {
+            if (event.target.value !== confirmPassword) {
+                window.alert('Password and Confirm Password do not match');
+            }
+        }
+        setUserInformation({
+            ...userInformation,
+            [event.target.name]: event.target.value
+        })
     }
 
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value)
-    }
-
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value)
-    }
-
-    const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(event.target.value)
     }
 
@@ -37,20 +38,22 @@ const UpdateUserForm = () => {
         dispatch(updateUser({
             _id: userId,
             update: {
-                name: name,
-                email: email,
-                password: password,
+                name: userInformation.name,
+                email: userInformation.email,
+                password: userInformation.password
             }
         }));
         navigate(`/users`);
     }
 
-    useEffect(() => {
-        if (userParams.state && userParams.state.user) {
-            setName(userParams.state.user.name);
-            setEmail(userParams.state.user.email);
-        }
-    }, [userParams, navigate]);
+    // useEffect(() => {
+    //     if (userParams.state && userParams.state.user) {
+    //         setUserInformation({
+    //             name: userParams.state.user.name,
+    //             email: userParams.state.user.email,
+    //         })
+    //     }
+    // }, [userParams, navigate]);
   return (
     <Box 
     maxWidth={500}
@@ -70,36 +73,36 @@ const UpdateUserForm = () => {
         <FormControl sx={{ m: 1, width:'300px' }} variant="standard">
             <TextField
             id="name"
+            name="name"
             label="Name"
             variant="standard"
-            value={name}
-            onChange={handleNameChange}
+            onChange={onChangeHandler}
             />
 
             <TextField
             id="email"
+            name="email"
             label="Email"
             variant="standard"
-            value={email}
-            onChange={handleEmailChange}
+            onChange={onChangeHandler}
             />
 
             <TextField
             id="password"
+            name="password"
             type="password"
             label="Password"
             variant="standard"
-            value={password}
-            onChange={handlePasswordChange}
+            onChange={onChangeHandler}
             />
 
             <TextField
             id="confirmPassword"
+            name="confirmPassword"
             label="Confirm Password"
             type="password"
             variant="standard"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
+            onChange={onConfirmPasswordChange}
             />
                 
             <Button

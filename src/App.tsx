@@ -9,9 +9,12 @@ import AddProductForm from './features/products/components/AddProductForm';
 import UpdateProductForm from './features/products/components/UpdateProductForm';
 import CategoriesPage from './features/categories/page/CategoriesPage';
 import AddCategoryForm from './features/categories/components/AddCategoryForm';
-import UsersPage from './features/users/page/UsersPage';
+import UsersPage from './features/users/pages/UsersPage';
 import AddUserForm from './features/users/components/AddUserForm';
 import UpdateUserForm from './features/users/components/UpdateUserForm';
+import Signup from './features/users/pages/Signup';
+import Login from './features/users/pages/Login';
+import Profile from './features/users/pages/Profile';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -51,18 +54,18 @@ const App = () => {
           path: 'categories/updateCategory/:id',
           element: <UpdateProductForm />
         },
-      //   {
-      //     path: 'register',
-      //     element: <RegisterPage />
-      //   },
-      //   {
-      //     path: 'login',
-      //     element: <LoginPage />
-      //   },
-      // {
-      //   path:'profile',
-      //   element: <ProfilePage />
-      // },
+        {
+          path: 'signup',
+          element: <Signup />
+        },
+        {
+          path: 'login',
+          element: <Login />
+        },
+      {
+        path:'profile',
+        element: <Profile />
+      },
       {
         path: 'users',
         element: <UsersPage />,
