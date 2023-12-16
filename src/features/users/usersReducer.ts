@@ -37,6 +37,19 @@ export const getAllUsers = createAsyncThunk<User[], void, { rejectValue: string 
     }
 );
 
+export const getUserById = createAsyncThunk<User, string, { rejectValue: string }>(
+    'getUserById',
+    async (_id, {rejectWithValue}) => {
+        try {
+            const response = await axios.get(`${url}/users/${_id}`);
+            return response.data;
+        } catch (e) {
+            const error = e as Error;
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 export const updateUser = createAsyncThunk<User, UpdateUserRequest, { rejectValue: string }>(
     'updateUser',
     async (user, {rejectWithValue}) => {
@@ -103,6 +116,17 @@ const usersSlice = createSlice({
             state.users = action.payload;
         })
         .addCase(getAllUsers.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+        .addCase(getUserById.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(getUserById.fulfilled, (state, action) => {
+            state.loading = false;
+            state.users = [action.payload];
+        })
+        .addCase(getUserById.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         })

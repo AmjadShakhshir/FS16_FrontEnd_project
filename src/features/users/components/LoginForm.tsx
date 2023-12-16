@@ -6,25 +6,30 @@ import useAppDispatch from '../../../common/hooks/useAppDispatch';
 import { login } from '../usersReducer';
 
 const LoginForm = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [userInformation, setUserInformation] = useState({
+        email: '',
+        password: '',
+    });
+
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const canSave = [email, password].every(Boolean);
+    const canSave = [
+        userInformation.email,
+        userInformation.password
+    ].every(Boolean);
 
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value)
-    }
-
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value)
+    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUserInformation({
+            ...userInformation,
+            [event.target.name]: event.target.value
+        })
     }
 
     const handleLogin = () => {
         dispatch(login({
-        email,
-        password,
+        email: userInformation.email,
+        password: userInformation.password,
         }))
         navigate('/')
     }
@@ -56,18 +61,18 @@ const LoginForm = () => {
                     <TextField
                     id="email"
                     label="Email"
+                    name="email"
                     variant="standard"
-                    value={email}
-                    onChange={handleEmailChange}
+                    onChange={onChangeHandler}
                     />
 
                     <TextField
                     id="password"
+                    name="password"
                     type="password"
                     label="Password"
                     variant="standard"
-                    value={password}
-                    onChange={handlePasswordChange}
+                    onChange={onChangeHandler}
                     />
 
                     <Button
