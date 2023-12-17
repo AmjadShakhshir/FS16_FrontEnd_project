@@ -6,7 +6,6 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Link, useNavigate } from "react-router-dom";
 
 import "./Navbar.scss"
