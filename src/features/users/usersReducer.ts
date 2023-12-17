@@ -13,17 +13,6 @@ export const initialState: {
     error: ''
 };
 
-export const UsersReducerState:{
-    currentUser: User | undefined;
-    status: 'idle' | 'success' | 'failed';
-    error: string | undefined;
-
-} = {
-    currentUser: undefined,
-    status: 'idle',
-    error: ''
-};
-
 export const getAllUsers = createAsyncThunk<User[], void, { rejectValue: string }>(
     'getAllUsers',
     async (_, {rejectWithValue}) => {
@@ -68,32 +57,6 @@ export const deleteUser = createAsyncThunk<User, string, { rejectValue: string }
     async (_id, {rejectWithValue}) => {
         try {
             const response = await axios.delete(`${url}/users/${_id}`);
-            return response.data;
-        } catch (e) {
-            const error = e as Error;
-            return rejectWithValue(error.message);
-        }
-    }
-);
-
-export const signup = createAsyncThunk<User, AddUserRequest, { rejectValue: string }>(
-    'signup',
-    async (user, {rejectWithValue}) => {
-        try {
-            const response = await axios.post(`${url}/users/signup`, user);
-            return response.data;
-        } catch (e) {
-            const error = e as Error;
-            return rejectWithValue(error.message);
-        }
-    }
-);
-
-export const login = createAsyncThunk<User, {email: string, password: string}, { rejectValue: string }>(
-    'login',
-    async (user, {rejectWithValue}) => {
-        try {
-            const response = await axios.post(`${url}/users/login`, user);
             return response.data;
         } catch (e) {
             const error = e as Error;
@@ -149,28 +112,6 @@ const usersSlice = createSlice({
             state.users = state.users.filter(user => user._id !== action.payload._id);
         })
         .addCase(deleteUser.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        })
-        .addCase(signup.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(signup.fulfilled, (state, action) => {
-            state.loading = false;
-            state.users.push(action.payload);
-        })
-        .addCase(signup.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        })
-        .addCase(login.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(login.fulfilled, (state, action) => {
-            state.loading = false;
-            state.users.push(action.payload);
-        })
-        .addCase(login.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         })

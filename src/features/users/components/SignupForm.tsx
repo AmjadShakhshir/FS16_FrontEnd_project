@@ -2,7 +2,7 @@ import { Box, Button, FormControl, Paper, TextField } from '@mui/material'
 import React, { useState } from 'react';
 
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
-import { signup } from '../usersReducer';
+import { signup } from '../authReducer';
 import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {

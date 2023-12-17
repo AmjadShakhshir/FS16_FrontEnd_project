@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
-import { login } from '../usersReducer';
+import { login } from '../authReducer';
 
 const LoginForm = () => {
     const [userInformation, setUserInformation] = useState({

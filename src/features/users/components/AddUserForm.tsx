@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
-import { signup } from '../usersReducer';
+import { signup } from '../authReducer';
 
 const AddUserForm = () => {
   const [name, setName] = useState('');

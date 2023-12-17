@@ -4,16 +4,24 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Link } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Navbar.scss"
-// import Cart from "../Cart/Cart";
 import useAppSelector from "../../hooks/useAppSelector";
 import Cart from "../Cart/Cart";
+import useAppDispatch from "../../hooks/useAppDispatch";
+import { logout } from "../../../features/users/authReducer";
 
 const Navbar = () => {
   const [open,setOpen] = useState(false)
   const cart = useAppSelector(state => state.cartReducer);
+  const { currentUser, status } = useAppSelector(state => state.authReducer);
+  const userId = useAppSelector(state => state.usersReducer.users.find(user => user.email === currentUser?.email)?._id.toString());
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="navbar">
@@ -53,16 +61,40 @@ const Navbar = () => {
           <div className="item">
             <Link className ="link" to="/products">Stores</Link>
           </div>
+        
           <div className="icons">
             <SearchIcon/>
-            <Link className ="link" to="/profile">
-              <PersonOutlineOutlinedIcon/>
-            </Link>
-            <FavoriteBorderOutlinedIcon/>
             <div className="cartIcon" onClick={()=>setOpen(!open)}>
               <ShoppingCartOutlinedIcon/>
               <span>{cart.length}</span>
             </div>
+            {status === 'succeeded' && currentUser ? (
+            <>
+              <PersonOutlineOutlinedIcon onClick={()=>{
+                navigate(`/profile/${userId}`)
+              }}
+              aria-label = "profile"
+              />
+              <FavoriteBorderOutlinedIcon
+              onClick = {() => {}}
+              aria-label = "favorite"
+              />
+              <LogoutIcon onClick={()=>{
+                dispatch(logout())
+                navigate('/')
+              }}
+              aria-label = "logout"
+              />
+            </>
+            ) : (
+            <>
+              <LoginIcon onClick = {() => {
+                navigate('/signup')
+              }}
+              aria-label = "signup"
+              />
+            </>
+            )}
           </div>
         </div>
       </div>
