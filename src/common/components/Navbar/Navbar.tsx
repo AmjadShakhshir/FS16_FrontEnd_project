@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import "./Navbar.scss"
 import useAppSelector from "../../hooks/useAppSelector";
-import Cart from "../Cart/Cart";
+import Cart from "../../../features/cart/pages/Cart";
 import useAppDispatch from "../../hooks/useAppDispatch";
 import { logout } from "../../../features/users/authReducer";
 

@@ -9,15 +9,18 @@ import '../style/Product.scss'
 import useAppDispatch from '../../../common/hooks/useAppDispatch';
 import { deleteProduct, getOneProduct } from '../productsReducer';
 import useAppSelector from '../../../common/hooks/useAppSelector';
+import { addProductToCart } from '../../cart/cartReducer';
 
 const Product = () => {
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const params = useParams<{id: string}>();
   const productId = params.id || '';
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const product = useAppSelector((state) => state.productsReducer.products.find((product) => product._id.toString() === productId));
+  
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     dispatch(getOneProduct(productId));
   }, [dispatch, productId]);
@@ -27,6 +30,10 @@ const Product = () => {
       dispatch(deleteProduct(productId));
       navigate('/products');
     }
+  }
+
+  const onAddToCart = () => {
+    if (product) dispatch(addProductToCart({ ...product, quantity }));
   }
 
   return (
@@ -48,7 +55,10 @@ const Product = () => {
           <span>{quantity}</span>
           <Button className='btn' onClick={()=> setQuantity( prev => prev + 1 )}>+</Button>
         </Box>
-        <Button className='add'>
+        <Button
+        className='add'
+        onClick={onAddToCart}
+        >
           <AddShoppingCartIcon /> Add To Cart
         </Button>
         <Box component='div' className="links">

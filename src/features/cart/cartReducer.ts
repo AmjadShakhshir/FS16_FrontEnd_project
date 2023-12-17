@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Product } from "../products/types/Product";
-import { CartItem } from "./CartItem";
-import { ObjectId } from "mongodb";
+import { CartItem } from "../cart/types/CartItem";
 
 const initialState: CartItem[] = [];
 
@@ -9,25 +8,25 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addProductToCart(state, action: PayloadAction<Product>) {
-            const cartItem: CartItem = { ...action.payload, quantity: 1 };
-            const productInCart = state.findIndex((p) => p._id === action.payload._id);
-            if (productInCart !== -1) {
-                state[productInCart].quantity++;
+        addProductToCart(state, action: PayloadAction<CartItem>) {
+            const product = action.payload;
+            const productInCart = state.findIndex((p) => p._id.toString() === product._id.toString());
+            if (productInCart >= 0) {
+                state[productInCart].quantity += product.quantity;
             } else {
-                state.push(cartItem);
+                state.push(product);
             }
         },
-        removeProductFromCart(state, action: PayloadAction<ObjectId>) {
+        removeProductFromCart(state, action: PayloadAction<string>) {
             const productId = action.payload;
-            const productInCart = state.findIndex((p) => p._id === productId);
+            const productInCart = state.findIndex((p) => p._id.toString() === productId);
             if (productInCart) {
                 state.splice(productInCart, 1);
             }
         },
-        updateProductQuantity(state, action: PayloadAction<{ productId: ObjectId, quantity: number }>) {
+        updateProductQuantity(state, action: PayloadAction<{ productId: string, quantity: number }>) {
             const { productId, quantity } = action.payload;
-            const productInCart = state.findIndex((p) => p._id === productId);
+            const productInCart = state.findIndex((p) => p._id.toString() === productId);
             if (productInCart) {
                 state[productInCart].quantity = quantity;
             }
