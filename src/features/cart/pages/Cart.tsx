@@ -51,7 +51,3 @@ const Cart = () => {
 }
 
 export default Cart
-
-function clearCart(): any {
-    throw new Error("Function not implemented.");
-  }
