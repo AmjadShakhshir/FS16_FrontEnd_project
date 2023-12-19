@@ -17,9 +17,9 @@ const Product = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const product = useAppSelector((state) => state.productsReducer.products.find((product) => product._id.toString() === productId));
+  const [quantity, setQuantity] = useState(1);
   
   const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     dispatch(getOneProduct(productId));
@@ -33,7 +33,7 @@ const Product = () => {
   }
 
   const onAddToCart = () => {
-    if (product) dispatch(addProductToCart({ ...product, quantity }));
+    if (product) dispatch(addProductToCart({ ...product, quantity: quantity}));
   }
 
   return (

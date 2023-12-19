@@ -46,22 +46,6 @@
       text-align: justify;
     }
 
-    .quantity{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      button{
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        border: none;
-      }
-    }
-
     .add{
       width: 250px;
       padding: 10px;
