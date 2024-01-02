@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AddUserRequest, UpdateUserRequest, User } from "./types/User";
+import { UpdateUserRequest, User } from "./types/User";
 import axios from "axios";
 import { url } from "../../common/common";
 
