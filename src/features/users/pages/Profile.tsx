@@ -10,15 +10,13 @@ const Profile = () => {
     const navigate = useNavigate();
     const params = useParams();
     const userId = params.id || '';
-    console.log(userId)
     const users = useAppSelector(state => state.usersReducer.users.find(user => user._id.toString() === userId));
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!userId) {
-            navigate('/users');
-        }
-        if (!userId) {
+            navigate('/');
+        } else {
             dispatch(getUserById(userId));
         }
     }, [dispatch, userId, navigate]);

@@ -1,9 +1,7 @@
-import { ObjectId } from "mongodb";
-
 export type Category = {
     name: string;
     images: string[];
-    _id: ObjectId;
+    _id: string;
 };
 
 export type AddCategoryRequest = Omit<Category, '_id'>;

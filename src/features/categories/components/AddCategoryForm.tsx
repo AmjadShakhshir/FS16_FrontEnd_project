@@ -23,14 +23,14 @@ const AddCategoryForm = () => {
     const onAddCategory = () => {
         dispatch(addCategory(
             {
-                name: name,
-                images: images,
+                name,
+                images,
             }
         ));
         setName('');
         setImages([]);
         navigate('/categories');
-    }
+    } 
   return (
     <Box component="div" sx={{
         display: 'flex',

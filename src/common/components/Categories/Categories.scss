@@ -1,6 +1,7 @@
 .categories {
-    display: flex;
-    height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 400px;
     gap: 10px;
     margin: 10px;
 
@@ -9,10 +10,6 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-    }
-
-    .col-l {
-        flex: 2;
     }
 
     .row{
