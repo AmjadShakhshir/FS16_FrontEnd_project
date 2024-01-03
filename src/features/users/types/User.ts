@@ -1,12 +1,13 @@
 import { ObjectId } from "mongodb";
 
 export interface User {
-    _id: ObjectId;
+    _id: string;
     name: string;
+    role: string;
     email: string;
     password: string;
-    logInWithGoogle: boolean;
-    token?: string;
+    avatar?: string;
+    logInWithGoogle?: boolean;
 };
 
 export type AddUserRequest = Omit<User, '_id'>;

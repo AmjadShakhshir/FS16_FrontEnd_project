@@ -1,7 +1,9 @@
 import { User } from "./User";
 
 export interface UsersReducerState {
+    accessToken: string,
     currentUser?: User,
-    error?: string,
+    isValid: boolean,
+    error: string,
     status: 'idle' | 'loading' | 'failed' | 'succeeded'
 }

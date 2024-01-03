@@ -38,6 +38,7 @@ const AddUserForm = () => {
     dispatch(signup({
       name,
       email,
+      role: 'user',
       password,
       logInWithGoogle: false,
     }))

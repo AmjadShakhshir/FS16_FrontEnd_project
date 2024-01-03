@@ -8,17 +8,20 @@ import { getUserById } from '../usersReducer';
 
 const Profile = () => {
     const navigate = useNavigate();
-    const params = useParams<{id: string}>();
+    const params = useParams();
     const userId = params.id || '';
-    if (!userId || userId === '' || userId === 'undefined') {
-        navigate('/users');
-    }
+    console.log(userId)
     const users = useAppSelector(state => state.usersReducer.users.find(user => user._id.toString() === userId));
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getUserById(userId));
-    }, [dispatch, userId]);
+        if (!userId) {
+            navigate('/users');
+        }
+        if (!userId) {
+            dispatch(getUserById(userId));
+        }
+    }, [dispatch, userId, navigate]);
     
     return (
         <Box sx={{ display: 'flex', p: 1 }}>

@@ -18,7 +18,6 @@ const Navbar = () => {
   const [open,setOpen] = useState(false)
   const cart = useAppSelector(state => state.cartReducer);
   const { currentUser, status } = useAppSelector(state => state.authReducer);
-  const userId = useAppSelector(state => state.usersReducer.users.find(user => user.email === currentUser?.email)?._id.toString());
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -67,10 +66,12 @@ const Navbar = () => {
               <ShoppingCartOutlinedIcon/>
               <span>{cart.length}</span>
             </div>
-            {status === 'succeeded' && currentUser ? (
+            
+            { status === 'succeeded' && currentUser ? (
             <>
-              <PersonOutlineOutlinedIcon onClick={()=>{
-                navigate(`/profile/${userId}`)
+              <PersonOutlineOutlinedIcon 
+              onClick = {() => {
+                navigate(`/users/profile/${currentUser._id}`)
               }}
               aria-label = "profile"
               />

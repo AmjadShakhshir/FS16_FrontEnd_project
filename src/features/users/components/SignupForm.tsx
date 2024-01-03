@@ -36,6 +36,7 @@ const SignupForm = () => {
         name: userInformation.name,
         email: userInformation.email,
         password: userInformation.password,
+        role: 'user',
         logInWithGoogle: false,
         }))
         navigate('/login')

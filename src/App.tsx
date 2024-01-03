@@ -63,7 +63,7 @@ const App = () => {
           element: <Login />
         },
       {
-        path:'profile/:id',
+        path:'users/profile/:id',
         element: <Profile />
       },
       {

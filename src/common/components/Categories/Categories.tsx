@@ -18,15 +18,15 @@ const Categories = () => {
             </button>
             </div>
             <div className="row">
-            <img
-                src="https://images.pexels.com/photos/2036646/pexels-photo-2036646.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-            />
-            <button>
-                <Link to="/products/1" className="link">
-                Women
-                </Link>
-            </button>
+                <img
+                    src="https://images.pexels.com/photos/2036646/pexels-photo-2036646.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    alt=""
+                />
+                <button>
+                    <Link to="/products/1" className="link">
+                    Women
+                    </Link>
+                </button>
             </div>
         </div>
         <div className="col">
