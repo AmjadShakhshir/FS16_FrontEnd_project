@@ -16,6 +16,7 @@ const UpdateProductForm = () => {
     const [description, setDescription] = useState('');
     const [stock, setStock] = useState(0);
     const [images, setImages] = useState<string[]>([]);
+    const [categoryId, setCategoryId] = useState('');
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -32,6 +33,9 @@ const UpdateProductForm = () => {
     const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setImages([e.target.value]);
     }
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCategoryId(e.target.value);
+    }
     const onUpdateProduct = () => {
         dispatch(updateProduct(
             {
@@ -41,7 +45,8 @@ const UpdateProductForm = () => {
                     price: price,
                     description: description,
                     stock: stock,
-                    images: images
+                    images: images,
+                    categoryId: categoryId,
                 }
             }
         ));
@@ -55,6 +60,7 @@ const UpdateProductForm = () => {
             setDescription(productParams.state.product.description);
             setStock(productParams.state.product.stock);
             setImages(productParams.state.product.images);
+            setCategoryId(productParams.state.product.categoryId);
         } else {
             navigate(`/products`);
         }
@@ -114,6 +120,15 @@ const UpdateProductForm = () => {
             variant="standard"
             color="primary"
             onChange={handleImagesChange}
+            required
+            />
+            <TextField
+            id="category"
+            label="CategoryId"
+            value={categoryId}
+            variant="standard"
+            color="primary"
+            onChange={handleCategoryChange}
             required
             />
             <Button

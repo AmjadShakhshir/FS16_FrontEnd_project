@@ -1,34 +1,42 @@
 import { Box, Button, FormControl, MenuItem, Pagination, Select, SelectChangeEvent, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import List from "../components/List/List";
 import "../style/Products.scss";
 import useAppSelector from "../../../common/hooks/useAppSelector";
 import useAppDispatch from "../../../common/hooks/useAppDispatch";
-import { getAllProducts, sortProducts } from "../productsReducer";
+import { filterProducts, getAllProducts, sortProducts, sortProductsByPrice } from "../productsReducer";
 import { getAllCategories } from "../../categories/categoriesReducer";
 
 const Products = () => {
-    const [maxPrice, setMaxPrice] = useState(1000);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const query = new URLSearchParams(location.search);
+    const catId = query.get("category") || "";
+    const { categories } = useAppSelector((state) => state.categoriesReducer);
+
+    const [maxPrice, setMaxPrice] = useState(0);
     const [selectedSubCats, setSelectedSubCats] = useState<string[]>([]);
     const [sort, setSort] = useState("asc");
-    const [limit, setLimit] = useState("10");
-    const { catId } = useParams<{ catId: string }>();
-    const { categories } = useAppSelector((state) => state.categoriesReducer);
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    
+    const [limit, setLimit] = useState("all");
+    const { products, loading } = useAppSelector((state) => state.productsReducer);
+        
     useEffect(() => {
         dispatch(getAllProducts({
             page: 1,
-            limit: limit,
+            limit: limit
         }));
     }, [dispatch, limit]);
 
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(filterProducts(selectedSubCats));
+    }, [dispatch, selectedSubCats]);
 
     const handleLimitChange = (e: SelectChangeEvent) => {
         setLimit(e.target.value);
@@ -45,14 +53,22 @@ const Products = () => {
 
     const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        const isChecked: boolean = e.target.checked || false;
+        console.log(value)
+        const isChecked: boolean = e.target.checked;
 
         setSelectedSubCats(
         isChecked
-            ? [...selectedSubCats, value]
-            : selectedSubCats.filter((item) => item !== value)
+            ? [...selectedSubCats, value] :
+            selectedSubCats.filter((item) => item !== value)
         );
     };
+
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMaxPrice(parseInt(value));
+        dispatch(sortProductsByPrice(parseInt(value)));
+    };
+
     return (
         <div className="products">
             <div className="left">
@@ -60,13 +76,13 @@ const Products = () => {
                 <h2>Product Categories</h2>
                 {categories?.map((item, index) => (
                     <div className="inputItem" key={`${item._id}${index}`}>
-                    <input
-                        type="checkbox"
-                        id={`${item._id}${index}`}
-                        value={`${item._id}`}
-                        onChange={handleCheckedChange}
-                    />
-                    <label htmlFor={item.name}>{item.name}</label>
+                        <input
+                            type="checkbox"
+                            id={item._id}
+                            value={item._id}
+                            onChange={handleCheckedChange}
+                        />
+                        <label htmlFor={item.name}>{item.name}</label>
                     </div>
                 ))}
                 <Button
@@ -85,7 +101,7 @@ const Products = () => {
                     type="range"
                     min={0}
                     max={1000}
-                    onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+                    onChange={handlePriceChange}
                     />
                     <span>{maxPrice}</span>
                 </div>
@@ -150,7 +166,7 @@ const Products = () => {
                 <Typography variant="h2" pb={2} fontSize="3em">
                     Products
                 </Typography>
-                <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats}/>
+                <List products={products} loading={loading} catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats}/>
                 <Pagination count={10} variant="outlined" shape="rounded" />
             </div>
         </div>

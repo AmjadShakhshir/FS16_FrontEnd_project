@@ -15,12 +15,12 @@ const Categories = () => {
     return (
         <div className="categories">
             {items.map((item) => (
-                <div className="col">
+                <div className="col" key={item._id}>
                     <div className="row">
                             <div className="col-3" key={item._id}>
                                 <img src={item.images[0]} alt={item.name} />
                                 <button>
-                                    <Link className="link" to={`/products`}>{item.name}</Link>
+                                    <Link className="link" to={`/products/?category=${item._id}`}>{item.name}</Link>
                                 </button>
                             </div>
                     </div>

@@ -1,16 +1,30 @@
-import React from 'react'
-import Card from '../../../../common/components/Card/Card'
-import useAppSelector from '../../../../common/hooks/useAppSelector'
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
 
-const List = ({ subCats, maxPrice, sort, catId }: { subCats: string[], maxPrice: number, sort: string, catId: string | undefined }) => {
-  const { products, loading } = useAppSelector((state) => state.productsReducer)
-  
+import Card from '../../../../common/components/Card/Card';
+import { Product } from '../../types/Product';
+
+const List = ({ products, loading, subCats, maxPrice, sort, catId }: 
+  { 
+    subCats: string[],
+    maxPrice: number,
+    sort: string,
+    catId: string | undefined,
+    products: Product[] | undefined,
+    loading: boolean
+  }) => {
+
+    const filterProducts = products?.filter((item) => {
+      if (catId) {
+        return item.categoryId === catId;
+      } else {
+        return item;
+      }
+    });
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent:"space-between" }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap:3 }}>
       {loading
         ? "loading"
-        : products?.map((item, index) => <Card product={item} key={`${item._id} + ${index}`} />)}
+        : filterProducts?.map((item, index) => <Card product={item} key={`${item._id} + ${index}`} />)}
     </Box>
   )
 }

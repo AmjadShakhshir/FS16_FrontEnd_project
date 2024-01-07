@@ -6,13 +6,17 @@ import { GetAllQueries } from './types/GetAllQueries';
 import { url } from '../../common/common';
 
 export const initialState: {
+    allTheProducts: Product[];
     products: Product[];
     error: string | undefined;
     loading: boolean;
+    searchTerm: string;
 } = {
+    allTheProducts: [],
     products: [],
     loading: false,
-    error: ''
+    error: '',
+    searchTerm: '',
 };
 
 export interface ProductState {
@@ -86,6 +90,7 @@ export const deleteProduct = createAsyncThunk<string, string, { rejectValue: str
         }
     }
 );
+    
 const productsSlice = createSlice({
     name: 'products',
     initialState,
@@ -96,6 +101,28 @@ const productsSlice = createSlice({
                 state.products.sort((a, b) => a.price - b.price);
             } else if (sortType === 'desc') {
                 state.products.sort((a, b) => b.price - a.price);
+            }
+        },
+        sortProductsByPrice: (state, action: PayloadAction<number>) => {
+            const priceValue = action.payload;
+            if (priceValue === 0 || priceValue >= 1000) {
+                state.products = state.allTheProducts;
+            } else {
+                state.products = state.products.filter(product => product.price <= priceValue);
+            }
+        },
+        setSearchTerm: (state, action: PayloadAction<string>) => {
+            state.searchTerm = action.payload;
+        },
+        searchProducts: (state) => {
+            state.products = state.products.filter(product => product.name.toLowerCase().includes(state.searchTerm.toLowerCase()));
+        },
+        filterProducts: (state, action: PayloadAction<string[]>) => {
+            const categories = action.payload;
+            if (categories.length === 0) {
+                state.products = state.allTheProducts;
+            } else {
+                state.products = state.allTheProducts.filter(product => categories.includes(product.categoryId));
             }
         },
         setUpState: (state, action: PayloadAction<Product[]>) => {
@@ -109,6 +136,7 @@ const productsSlice = createSlice({
         builder
         .addCase(getAllProducts.fulfilled, (state, action) => {
             state.products = action.payload;
+            state.allTheProducts = action.payload;
             state.loading = false;
         })
         .addCase(getAllProducts.rejected, (state, action) => {
@@ -162,5 +190,5 @@ const productsSlice = createSlice({
 });
 
 const productsReducer = productsSlice.reducer;
-export const { sortProducts, setUpState, cleanUpState } = productsSlice.actions;
+export const { sortProducts, sortProductsByPrice,setUpState, cleanUpState, searchProducts, filterProducts } = productsSlice.actions;
 export default productsReducer;

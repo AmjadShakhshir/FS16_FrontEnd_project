@@ -10,6 +10,7 @@ const AddProductForm = () => {
     const [description, setDescription] = useState('');
     const [stock, setStock] = useState(0);
     const [images, setImages] = useState<string[]>([]);
+    const [category, setCategory] = useState('');
 
     const canSave = [name, price, description, stock, images].every(Boolean);
 
@@ -28,6 +29,10 @@ const AddProductForm = () => {
     const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setImages([e.target.value]);
     }
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCategory(e.target.value);
+    }
+
     const onAddProduct = () => {
         dispatch(addProduct(
             {
@@ -36,6 +41,7 @@ const AddProductForm = () => {
                 description: description,
                 images: images,
                 stock: stock,
+                categoryId: category,
             }
         ));
         setName('');
@@ -43,6 +49,7 @@ const AddProductForm = () => {
         setDescription('');
         setStock(0);
         setImages([]);
+        setCategory('');
     }
   return (
     <Box component="div" sx={{
@@ -93,6 +100,14 @@ const AddProductForm = () => {
             variant="standard"
             color="primary"
             onChange={handleImagesChange}
+            required
+            />
+            <TextField
+            id="category"
+            label="Category"
+            variant="standard"
+            color="primary"
+            onChange={handleCategoryChange}
             required
             />
             <Button
