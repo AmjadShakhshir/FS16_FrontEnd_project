@@ -25,7 +25,7 @@ const Checkout = () => {
             country: "",
         },
         shippingAddress: {
-            isSameAddress: false,
+            isSameAddress: true,
             address: {
                 firstName: "",
                 lastName: "",
@@ -73,6 +73,8 @@ const Checkout = () => {
                         {isFirstStep && (
                             <Shipping
                                 values={values}
+                                errors={errors}
+                                touched={touched}
                                 handleChange={handleChange}
                                 handleBlur={handleBlur}
                                 setFieldValue={setFieldValue}

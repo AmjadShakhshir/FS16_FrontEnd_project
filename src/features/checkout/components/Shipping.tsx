@@ -3,8 +3,10 @@ import React from 'react'
 import AddressForm from './AddressForm'
 import { InitialValues } from '../types/InitialValues'
 
-const Shipping = ({ values, handleChange, handleBlur, setFieldValue }: {
+const Shipping = ({ values, errors, touched, handleChange, handleBlur, setFieldValue }: {
     values: InitialValues,
+    errors: any,
+    touched: any,
     handleChange: React.ChangeEventHandler<HTMLInputElement>,
     handleBlur: React.FocusEventHandler<HTMLInputElement>,
     setFieldValue: any
@@ -18,6 +20,8 @@ const Shipping = ({ values, handleChange, handleBlur, setFieldValue }: {
             </Typography>
             <AddressForm
                 type="billingAddress"
+                errors={errors}
+                touched={touched}
                 values={values.billingAddress}
                 handleChange={handleChange}
                 handleBlur={handleBlur}
@@ -27,7 +31,7 @@ const Shipping = ({ values, handleChange, handleBlur, setFieldValue }: {
 
         <Box mb="20px">
             <FormControlLabel
-                label="Same as billing address"
+                label="Same for Shipping Address"
                 control={
                     <Checkbox
                         defaultChecked
@@ -49,6 +53,8 @@ const Shipping = ({ values, handleChange, handleBlur, setFieldValue }: {
                 </Typography>
                 <AddressForm
                     type="shippingAddress"
+                    errors={errors}
+                    touched={touched}
                     values={values.shippingAddress.address}
                     handleChange={handleChange}
                     handleBlur={handleBlur}
