@@ -15,6 +15,7 @@ import UpdateUserForm from './features/users/components/UpdateUserForm';
 import Signup from './features/users/pages/Signup';
 import Login from './features/users/pages/Login';
 import Profile from './features/users/pages/Profile';
+import Checkout from './features/checkout/Checkout';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const App = () => {
         {
           path: 'categories/updateCategory/:id',
           element: <UpdateProductForm />
+        },
+        {
+          path: 'checkout',
+          element: <Checkout />
         },
         {
           path: 'signup',
