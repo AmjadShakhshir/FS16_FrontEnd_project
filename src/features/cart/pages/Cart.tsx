@@ -5,14 +5,20 @@ import "../style/Cart.scss"
 import useAppSelector from "../../../common/hooks/useAppSelector";
 import useAppDispatch from "../../../common/hooks/useAppDispatch";
 import { removeProductFromCart, resetCart } from "../cartReducer";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const cart = useAppSelector(state => state.cartReducer);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const handleDelete = (_id: string) => {
     dispatch(removeProductFromCart(_id));
+  }
+
+  const handleCheckout = () => {
+    navigate('/checkout');
   }
 
   const handleReset = () => {
@@ -40,7 +46,10 @@ const Cart = () => {
         <Typography component='h4'>SubTotal</Typography>
         <Typography component='h4'>€{total}</Typography>
       </Box>
-      <Button variant='contained'>Proceed To Checkout</Button>
+      <Button
+        variant='contained'
+        onClick={handleCheckout}
+      >Proceed To Checkout</Button>
       <Typography
       component={'span'}
       className="reset"
