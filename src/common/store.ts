@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
     categoriesReducer,
     usersReducer,
     authReducer,
-    ordersReducer
+    ordersReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

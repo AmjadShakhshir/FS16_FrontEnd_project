@@ -7,9 +7,8 @@ import Shipping from "../components/Shipping";
 import { InitialValues } from "../types/InitialValues";
 import { CheckoutSchema } from "../schema/CheckoutSchema";
 import Payment from "../components/Payment";
-import { loadStripe } from "@stripe/stripe-js";
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
+import { useNavigate } from "react-router-dom";
+import PaymentPage from "../../payment/page/PaymentPage";
 
 const initialValues: InitialValues = {
         billingAddress: {
@@ -41,9 +40,12 @@ const initialValues: InitialValues = {
 
 const Checkout = () => {
     const cart = useAppSelector(state => state.cartReducer);
+    const userId = useAppSelector(state => state.authReducer.currentUser?._id);
     const [activeStep, setActiveStep] = useState(0);
     const isFirstStep = activeStep === 0;
     const isSecondStep = activeStep === 1;
+    const isLastStep = activeStep === 2;
+    const navigate = useNavigate();
 
     const handleFormSubmit = (values: InitialValues, actions: any) => {
         // copies the values from billing address to shipping address
@@ -53,19 +55,26 @@ const Checkout = () => {
                 isSameAddress: true,
             });
         }
-
-        if (isSecondStep) {
-            console.log(values);
+        if (isLastStep) {
+            navigate("/payment", {
+                state: {
+                    ...values,
+                    cart,
+                    userId
+                }
+            });
         }
-
         actions.setTouched({});
-        
     }
+
   return (
     <Box width="80%" m="100px auto">
         <Stepper activeStep={activeStep} sx={{ m: "20px 0"}}>
             <Step>
                 <StepLabel>Billing</StepLabel>
+            </Step>
+            <Step>
+                <StepLabel>Contact Details</StepLabel>
             </Step>
             <Step>
                 <StepLabel>Payment</StepLabel>
@@ -107,6 +116,9 @@ const Checkout = () => {
                                 setFieldValue={setFieldValue}
                             />
                         )}
+                        {isLastStep && (
+                            <PaymentPage />
+                        )}
                         <Box display="flex" justifyContent="space-between" gap="50px">
                             {!isFirstStep && (
                                 <Button
@@ -134,10 +146,10 @@ const Checkout = () => {
                                     padding: "15px 40px"
                                 }}
                                 onClick={() => {
-                                    if (activeStep < 1 ) setActiveStep(activeStep + 1)
+                                    if (activeStep < 2 ) setActiveStep(activeStep + 1)
                                     }
                                 }
-                            >{!isSecondStep ? "Next": "Place Order"}</Button>
+                            >{!isLastStep ? "Next": "Place Order"}</Button>
                         </Box>
                     </form>
                 )}
