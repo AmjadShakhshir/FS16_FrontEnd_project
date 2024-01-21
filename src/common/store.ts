@@ -21,7 +21,13 @@ import ordersReducer from "../features/orders/ordersReducer";
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['categories', 'users', 'products', 'auth']
+    blacklist: [
+        'categoriesReducer',
+        'usersReducer',
+        'productsReducer',
+        'authReducer',
+        'ordersReducer'
+    ]
 };
 
 const rootReducer = combineReducers({
