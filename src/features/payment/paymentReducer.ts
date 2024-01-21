@@ -12,7 +12,6 @@ const initialState:{
 } = {
     payment: {
         userId: '',
-        ordersId: [],
         method: "bank_transfer",
         bankName: "",
         accountNumber: "",

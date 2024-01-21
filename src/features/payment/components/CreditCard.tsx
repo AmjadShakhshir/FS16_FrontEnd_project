@@ -1,9 +1,9 @@
 import { Grid, TextField, FormControlLabel, Checkbox } from '@mui/material'
 import { Formik } from 'formik';
-import React from 'react';
-import { PaymentInitialValues } from '../type/PaymentInitialValues';
 
-const initialValues: PaymentInitialValues = {
+import { CreditPaymentInitialValues } from '../type/CreditPaymentInitialValues';
+
+const initialValues: CreditPaymentInitialValues = {
     cardName: "",
     cardNumber: "",
     expDate: "",

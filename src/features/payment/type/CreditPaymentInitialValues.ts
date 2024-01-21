@@ -1,4 +1,4 @@
-export type PaymentInitialValues = {
+export type CreditPaymentInitialValues = {
     cardName: string;
     cardNumber: string;
     expDate: string;
