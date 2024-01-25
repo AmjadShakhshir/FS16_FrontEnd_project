@@ -5,5 +5,6 @@ export interface UsersReducerState {
     currentUser?: User,
     isValid: boolean,
     error: string,
-    status: 'idle' | 'loading' | 'failed' | 'succeeded'
+    status: 'idle' | 'loading' | 'failed' | 'succeeded',
+    isLoggedIn: boolean,
 }
