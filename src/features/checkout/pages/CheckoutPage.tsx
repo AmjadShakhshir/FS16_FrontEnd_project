@@ -1,6 +1,6 @@
 import { Box, Stepper, Step, StepLabel, Button } from "@mui/material"
 import { Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Shipping from "../components/Shipping";
 import { CheckoutInitialValues } from "../types/CheckoutInitialValues";
@@ -10,6 +10,9 @@ import PaymentPage from "../../payment/page/PaymentPage";
 import Checkout from "../components/Checkout";
 import useAppDispatch from "../../../common/hooks/useAppDispatch";
 import { makePayment } from "../../payment/paymentReducer";
+import useAppSelector from "../../../common/hooks/useAppSelector";
+import { useNavigate } from "react-router-dom";
+import { resetCart } from "../../cart/cartReducer";
 
 const initialValues: CheckoutInitialValues = {
         billingAddress: {
@@ -45,12 +48,23 @@ const initialValues: CheckoutInitialValues = {
     }
 
 const CheckoutPage = () => {
+    const [amount, setAmount] = useState(0);
+    const Navigate = useNavigate();
+    const cart = useAppSelector(state => state.cartReducer);
+    const user = useAppSelector(state => state.authReducer.currentUser);
     const dispatch = useAppDispatch();
     const [activeStep, setActiveStep] = useState(0);
     const isFirstStep = activeStep === 0;
     const isSecondStep = activeStep === 1;
     const isThirdStep = activeStep === 2;
     const isLastStep = activeStep === 3;
+
+    useEffect(() => {
+        const total = Number(cart.reduce((acc, item) => acc + item.price * item.quantity + ((item.price * item.quantity * 0.1)), 0).toFixed(1));
+        setAmount(total);
+    }, [cart])
+
+    if (!user) return <Box>Not logged in</Box>
 
     const handleFormSubmit = (values: CheckoutInitialValues, actions: any) => {
         // copies the values from billing address to shipping address
@@ -161,11 +175,12 @@ const CheckoutPage = () => {
                                             method: "bank_transfer",
                                             bankName: values.bankName,
                                             accountNumber: values.accountNumber,
-                                            ordersId: [""],
-                                            userId: "6554ca84bf8a024cf7803db3",
+                                            userId: user?._id,
                                             shipmentInfo: values.billingAddress,
+                                            amount: amount
                                         }))
-                                        setActiveStep(0);
+                                        dispatch(resetCart())
+                                        Navigate("/confirmation")
                                     }}
                                 }
                             >{!isLastStep ? "Next": "Place Order"}</Button>
