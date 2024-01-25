@@ -11,7 +11,8 @@ const initialState: UsersReducerState = {
     currentUser: undefined,
     isValid: false,
     error: '',
-    status: 'idle'
+    status: 'idle',
+    isLoggedIn: false
 };
 
 
@@ -36,8 +37,7 @@ export const login = createAsyncThunk<CurrentUser, UserCredentials, { rejectValu
             const loggedInUser = response.data;
             const accessToken = loggedInUser.accessToken;
             localStorage.setItem('accessToken', accessToken);
-            const user = loggedInUser;
-            return user;
+            return { accessToken, ...loggedInUser};
         } catch (e) {
             const error = e as Error;
             return rejectWithValue(error.message);
@@ -87,6 +87,7 @@ const authSlice = createSlice({
                 return {
                     ...state,
                     status: 'succeeded',
+                    isLoggedIn: true,
                     currentUser: action.payload
                 }
         })
