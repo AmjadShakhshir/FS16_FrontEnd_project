@@ -17,6 +17,7 @@ import Login from './features/users/pages/Login';
 import Profile from './features/users/pages/Profile';
 import Checkout from './features/checkout/pages/CheckoutPage';
 import ProtectedRoute from './common/routes/protectedRoute';
+import PaymentConfirmationPage from './features/payment/page/PaymentConfirmationPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -59,6 +60,10 @@ const App = () => {
         {
           path: 'checkout',
           element: <ProtectedRoute element={<Checkout />} />
+        },
+        {
+          path: 'confirmation',
+          element: <ProtectedRoute element={<PaymentConfirmationPage />} />
         },
         {
           path: 'signup',
