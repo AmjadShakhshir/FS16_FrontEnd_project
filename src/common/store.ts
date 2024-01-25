@@ -25,7 +25,6 @@ const persistConfig = {
         'categoriesReducer',
         'usersReducer',
         'productsReducer',
-        'authReducer',
         'ordersReducer'
     ]
 };
