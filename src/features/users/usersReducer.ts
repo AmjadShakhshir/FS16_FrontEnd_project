@@ -33,7 +33,11 @@ export const getUserById = createAsyncThunk<User, string, { rejectValue: string 
             if (!_id) {
                 return rejectWithValue('User ID is undefined');
             }
-            const response = await axios.get(`${url}/users/profile/${_id}`);
+            const response = await axios.get(`${url}/users/profile/${_id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             return response.data;
         } catch (e) {
             const error = e as Error;
