@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -81,9 +80,9 @@ const Navbar = () => {
             ) : (
             <>
               <LoginIcon onClick = {() => {
-                navigate('/signup')
+                navigate('/login')
               }}
-              aria-label = "signup"
+              aria-label = "login"
               />
             </>
             )}
