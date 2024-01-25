@@ -10,7 +10,7 @@ const Profile = () => {
     const navigate = useNavigate();
     const params = useParams();
     const userId = params.id || '';
-    const users = useAppSelector(state => state.usersReducer.users.find(user => user._id.toString() === userId));
+    const users = useAppSelector(state => state.authReducer.currentUser);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
