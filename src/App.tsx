@@ -16,6 +16,7 @@ import Signup from './features/users/pages/Signup';
 import Login from './features/users/pages/Login';
 import Profile from './features/users/pages/Profile';
 import Checkout from './features/checkout/pages/CheckoutPage';
+import ProtectedRoute from './common/routes/protectedRoute';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -37,27 +38,27 @@ const App = () => {
         },
         {
           path: 'addProduct',
-          element: <AddProductForm />
+          element: <ProtectedRoute isAdmin={true} element={<AddProductForm />} />
         },
         {
           path: 'updateProduct/:id',
-          element: <UpdateProductForm />
+          element: <ProtectedRoute isAdmin={true} element={<UpdateProductForm />} />
         },
         {
           path: 'categories',
-          element: <CategoriesPage />
+          element: <ProtectedRoute isAdmin={true} element={<CategoriesPage />} />
         },
         {
           path: 'categories/addCategory',
-          element: <AddCategoryForm />
+          element: <ProtectedRoute isAdmin={true} element={<AddCategoryForm />} />
         },
         {
           path: 'categories/updateCategory/:id',
-          element: <UpdateProductForm />
+          element: <ProtectedRoute isAdmin={true} element={<UpdateProductForm />} />
         },
         {
           path: 'checkout',
-          element: <Checkout />
+          element: <ProtectedRoute element={<Checkout />} />
         },
         {
           path: 'signup',
@@ -67,9 +68,9 @@ const App = () => {
           path: 'login',
           element: <Login />
         },
-      {
-        path:'users/profile/:id',
-        element: <Profile />
+        {
+          path:'users/profile/:id',
+          element: <ProtectedRoute element={<Profile />} />
       },
       {
         path: 'users',
@@ -77,18 +78,25 @@ const App = () => {
       },
       {
         path: 'users/addUser',
-        element: <AddUserForm />
+        element: <ProtectedRoute isAdmin={true} element={<AddUserForm />} />
       },
       {
         path: 'users/updateUser/:id',
-        element: <UpdateUserForm />
+        element: <ProtectedRoute isAdmin={true} element={<UpdateUserForm />} />
       },
-      ]
-    },
+      {
+        path: 'checkout',
+        element: <ProtectedRoute element={<Checkout />} />
+      },
+      {
+        path: 'login',
+        element: <Login />
+      },
       {
         path: '*',
         element: <ErrorPage />
-      }
+      }]
+    }
   ]);
   return (
     <RouterProvider router={router} />
