@@ -14,7 +14,6 @@ const initialState:{
         userId: '',
         method: "bank_transfer",
         bankName: "",
-        ordersId: [],
         accountNumber: "",
         shipmentInfo: {
             firstName: "",
@@ -27,6 +26,7 @@ const initialState:{
             country: "",
             shippingPrice: 10,
         },
+        amount: 0,
     },
     error: '',
     loading: false,
@@ -36,8 +36,11 @@ export const makePayment = createAsyncThunk<PaymentDetails, PaymentDetails, { re
     'makePayment',
     async (paymentDetails: PaymentDetails, {rejectWithValue}) => {
         try {
-            console.log(paymentDetails)
-            const response = await axios.post(`${url}/payments`, paymentDetails);
+            const response = await axios.post(`${url}/payments`, paymentDetails, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             return response.data;
         } catch (e) {
             const error = e as Error;
