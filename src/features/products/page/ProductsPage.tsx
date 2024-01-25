@@ -53,7 +53,6 @@ const Products = () => {
 
     const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        console.log(value)
         const isChecked: boolean = e.target.checked;
 
         setSelectedSubCats(

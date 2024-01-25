@@ -9,7 +9,7 @@ export const CheckoutSchema = [
             address2: yup.string(),
             city: yup.string().required('City is required'),
             state: yup.string().required('State is required'),
-            zip: yup.string().required('Zip code is required'),
+            zipCode: yup.string().required('Zip code is required'),
             country: yup.string().required('Country is required'),
         }),
         shipppingAddress: yup.object().shape({
@@ -46,7 +46,7 @@ export const CheckoutSchema = [
                 then: (stateSchema) => stateSchema.required('State is required'),
                 otherwise: (stateSchema) => stateSchema.notRequired(),
             }),
-            zip: yup.string().when('isSameAddress', {
+            zipCode: yup.string().when('isSameAddress', {
                 is: (isSameAddress: boolean) => isSameAddress === false,
                 then: (zipSchema) => zipSchema.required('Zip code is required'),
                 otherwise: (zipSchema) => zipSchema.notRequired(),

@@ -1,35 +1,18 @@
-import { Formik } from 'formik'
-import { PaymentDetails } from '../type/PaymentDetails'
 import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material'
 
-const initialValues: PaymentDetails = {
-    userId: "",
-    method: "bank_transfer",
-    bankName: "",
-    accountNumber: "",
-    shipmentInfo: {
-        firstName: "",
-        lastName: "",
-        street1: "",
-        street2: "",
-        city: "",
-        state: "",
-        zip: "",
-        country: "",
-    },
-}
+import { CheckoutInitialValues } from '../../checkout/types/CheckoutInitialValues'
 
-
-const BankTransfer = () => {
+const BankTransfer = ({ values, errors, touched, handleChange, handleBlur, setFieldValue }: {
+    values: CheckoutInitialValues,
+    errors: any,
+    touched: any,
+    handleChange: React.ChangeEventHandler<HTMLInputElement>,
+    handleBlur: React.FocusEventHandler<HTMLInputElement>,
+    setFieldValue: any
+}) => {
+    values.paymentMethod = "Bank Transfer";
     return (
         <>
-            <Formik
-                initialValues={initialValues}
-                onSubmit={(values) => {
-                    console.log(values)
-                }}
-                validationSchema={null}
-            >
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
                         <TextField
@@ -39,6 +22,10 @@ const BankTransfer = () => {
                             fullWidth
                             autoComplete="bank-name"
                             variant="standard"
+                            value={values.bankName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={!!(touched.bankName && errors.bankName)}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -49,6 +36,10 @@ const BankTransfer = () => {
                             fullWidth
                             autoComplete="account-number"
                             variant="standard"
+                            value={values.accountNumber}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={!!(touched.accountNumber && errors.accountNumber)}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -79,7 +70,6 @@ const BankTransfer = () => {
                         />
                     </Grid>
                 </Grid>
-            </Formik>
         </>
     )
 }

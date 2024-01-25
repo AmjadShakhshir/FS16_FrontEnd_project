@@ -5,8 +5,9 @@ export type Address = {
     street2: string;
     city: string;
     state: string;
-    zip: string;
+    zipCode: string;
     country: string;
+    shippingPrice: number;
 };
 
 export type ShippingAddress = {
@@ -19,4 +20,7 @@ export type CheckoutInitialValues = {
     shippingAddress: ShippingAddress;
     email: string;
     phoneNumber: string;
+    paymentMethod: string;
+    bankName: string;
+    accountNumber: string;
 };

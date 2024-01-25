@@ -2,11 +2,18 @@ import { Box, Typography, FormControlLabel, FormControl, FormLabel, Radio, Radio
 import { useState } from 'react';
 import CreditCard from '../components/CreditCard';
 import BankTransfer from '../components/BankTransfer';
+import { CheckoutInitialValues } from '../../checkout/types/CheckoutInitialValues';
 
-const PaymentPage = () => {
+const PaymentPage = ({ values, errors, touched, handleChange, handleBlur, setFieldValue }: {
+    values: CheckoutInitialValues,
+    errors: any,
+    touched: any,
+    handleChange: React.ChangeEventHandler<HTMLInputElement>,
+    handleBlur: React.FocusEventHandler<HTMLInputElement>,
+    setFieldValue: any
+}) => {
     const [value, setValue] = useState('Credit Card');
-    
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
     }
     return (
@@ -24,18 +31,32 @@ const PaymentPage = () => {
                         aria-labelledby="demo-row-radio-buttons-group-label"
                         name="row-radio-buttons-group"
                         defaultValue="Credit Card"
-                        value={value}
-                        onChange={handleChange}
+                        value={values.paymentMethod}
+                        onChange={handleRadioChange}
                     >
                         <FormControlLabel value="Credit Card" control={<Radio />} label="Credit Card" />
                         <FormControlLabel value="Bank Transfer" control={<Radio />} label="Bank Transfer" />
                     </RadioGroup>
                 </FormControl>
                 {value === "Credit Card" && (
-                    <CreditCard />
+                    <CreditCard
+                        values={values}
+                        errors={errors}
+                        touched={touched}
+                        handleChange={handleChange}
+                        handleBlur={handleBlur}
+                        setFieldValue={setFieldValue}
+                        />
                 )}
                 {value === "Bank Transfer" && (
-                    <BankTransfer />
+                    <BankTransfer
+                        values={values}
+                        errors={errors}
+                        touched={touched}
+                        handleChange={handleChange}
+                        handleBlur={handleBlur}
+                        setFieldValue={setFieldValue}
+                        />
                 )}
             </Box>
         </Box>

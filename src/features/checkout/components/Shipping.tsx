@@ -3,6 +3,8 @@ import React from 'react'
 import AddressForm from './AddressForm'
 import { CheckoutInitialValues } from '../types/CheckoutInitialValues'
 
+
+
 const Shipping = ({ values, errors, touched, handleChange, handleBlur, setFieldValue }: {
     values: CheckoutInitialValues,
     errors: any,
@@ -11,7 +13,7 @@ const Shipping = ({ values, errors, touched, handleChange, handleBlur, setFieldV
     handleBlur: React.FocusEventHandler<HTMLInputElement>,
     setFieldValue: any
 }) => {
-  return (
+    return (
     <Box>
         { /* Billing Form */}
         <Box>

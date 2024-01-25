@@ -14,6 +14,7 @@ const initialState:{
         userId: '',
         method: "bank_transfer",
         bankName: "",
+        ordersId: [],
         accountNumber: "",
         shipmentInfo: {
             firstName: "",
@@ -22,8 +23,9 @@ const initialState:{
             street2: "",
             city: "",
             state: "",
-            zip: "",
+            zipCode: "",
             country: "",
+            shippingPrice: 10,
         },
     },
     error: '',
@@ -34,7 +36,8 @@ export const makePayment = createAsyncThunk<PaymentDetails, PaymentDetails, { re
     'makePayment',
     async (paymentDetails: PaymentDetails, {rejectWithValue}) => {
         try {
-            const response = await axios.post(`${url}/payment`, paymentDetails);
+            console.log(paymentDetails)
+            const response = await axios.post(`${url}/payments`, paymentDetails);
             return response.data;
         } catch (e) {
             const error = e as Error;
@@ -54,7 +57,6 @@ export const paymentSlice = createSlice({
             })
             .addCase(makePayment.fulfilled, (state, action) => {
                 state.payment = action.payload;
-                console.log(action.payload)
                 state.loading = false;
             })
             .addCase(makePayment.rejected, (state, action) => {

@@ -127,12 +127,12 @@ const AddressForm = ({ type, errors, touched, values, handleChange, handleBlur, 
 
             <TextField
                 fullWidth
-                label="Zip"
+                label="Zip Code"
                 type="text"
-                name={formattedName("zip")}
-                error={formattedError("zip")}
-                helperText={formattedHelperText("zip")}
-                value={values.zip}
+                name={formattedName("zipCode")}
+                error={formattedError("zipCode")}
+                helperText={formattedHelperText("zipCode")}
+                value={values.zipCode}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 sx={{ gridColumn: "1fr" }}

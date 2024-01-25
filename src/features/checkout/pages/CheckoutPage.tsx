@@ -6,9 +6,10 @@ import Shipping from "../components/Shipping";
 import { CheckoutInitialValues } from "../types/CheckoutInitialValues";
 import { CheckoutSchema } from "../schema/CheckoutSchema";
 import CustomerContactInfo from "../components/CustomerContactInfo";
-import { useNavigate } from "react-router-dom";
 import PaymentPage from "../../payment/page/PaymentPage";
 import Checkout from "../components/Checkout";
+import useAppDispatch from "../../../common/hooks/useAppDispatch";
+import { makePayment } from "../../payment/paymentReducer";
 
 const initialValues: CheckoutInitialValues = {
         billingAddress: {
@@ -18,8 +19,9 @@ const initialValues: CheckoutInitialValues = {
             street2: "",
             city: "",
             state: "",
-            zip: "",
+            zipCode: "",
             country: "",
+            shippingPrice: 10,
         },
         shippingAddress: {
             isSameAddress: true,
@@ -30,21 +32,25 @@ const initialValues: CheckoutInitialValues = {
                 street2: "",
                 city: "",
                 state: "",
-                zip: "",
+                zipCode: "",
                 country: "",
+                shippingPrice: 10,
             }
         },
         email: "",
         phoneNumber: "",
+        paymentMethod: "",
+        bankName: "",
+        accountNumber: "",
     }
 
 const CheckoutPage = () => {
+    const dispatch = useAppDispatch();
     const [activeStep, setActiveStep] = useState(0);
     const isFirstStep = activeStep === 0;
     const isSecondStep = activeStep === 1;
     const isThirdStep = activeStep === 2;
     const isLastStep = activeStep === 3;
-    const navigate = useNavigate();
 
     const handleFormSubmit = (values: CheckoutInitialValues, actions: any) => {
         // copies the values from billing address to shipping address
@@ -56,7 +62,6 @@ const CheckoutPage = () => {
         }
         actions.setTouched({});
     }
-
   return (
     <Box width="80%" m="100px auto">
         <Stepper activeStep={activeStep} sx={{ m: "20px 0"}}>
@@ -86,7 +91,8 @@ const CheckoutPage = () => {
                     handleChange,
                     handleBlur,
                     handleSubmit,
-                    setFieldValue
+                    setFieldValue,
+                    isValid,
                 }) => (
                     <form onSubmit={handleSubmit}>
                         {isFirstStep && (
@@ -113,7 +119,14 @@ const CheckoutPage = () => {
                             />
                         )}
                         {isLastStep && (
-                            <PaymentPage />
+                            <PaymentPage
+                                values={values}
+                                errors={errors}
+                                touched={touched}
+                                handleChange={handleChange}
+                                handleBlur={handleBlur}
+                                setFieldValue={setFieldValue}
+                            />
                         )}
                         <Box display="flex" justifyContent="space-between" gap="50px">
                             {!isFirstStep && (
@@ -142,8 +155,18 @@ const CheckoutPage = () => {
                                     padding: "15px 40px"
                                 }}
                                 onClick={() => {
-                                    if (activeStep < 3 ) setActiveStep(activeStep + 1)
-                                    }
+                                    if (isValid && activeStep < 3 ) setActiveStep(activeStep + 1);
+                                    else if (isValid && activeStep === 3) {
+                                        dispatch(makePayment({
+                                            method: "bank_transfer",
+                                            bankName: values.bankName,
+                                            accountNumber: values.accountNumber,
+                                            ordersId: [""],
+                                            userId: "6554ca84bf8a024cf7803db3",
+                                            shipmentInfo: values.billingAddress,
+                                        }))
+                                        setActiveStep(0);
+                                    }}
                                 }
                             >{!isLastStep ? "Next": "Place Order"}</Button>
                         </Box>

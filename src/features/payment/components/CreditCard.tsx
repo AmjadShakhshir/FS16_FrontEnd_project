@@ -2,6 +2,7 @@ import { Grid, TextField, FormControlLabel, Checkbox } from '@mui/material'
 import { Formik } from 'formik';
 
 import { CreditPaymentInitialValues } from '../type/CreditPaymentInitialValues';
+import { CheckoutInitialValues } from '../../checkout/types/CheckoutInitialValues';
 
 const initialValues: CreditPaymentInitialValues = {
     cardName: "",
@@ -11,14 +12,19 @@ const initialValues: CreditPaymentInitialValues = {
     saveCard: false,
 }
 
-const CreditCard = () => {
+const CreditCard = ({ values, errors, touched, handleChange, handleBlur, setFieldValue }: {
+    values: CheckoutInitialValues,
+    errors: any,
+    touched: any,
+    handleChange: React.ChangeEventHandler<HTMLInputElement>,
+    handleBlur: React.FocusEventHandler<HTMLInputElement>,
+    setFieldValue: any
+}) => {
     return (
     <>
         <Formik
             initialValues={ initialValues}
-            onSubmit={(values) => {
-                console.log(values)
-            }}
+            onSubmit={() => {}}
             validationSchema={null}
         >
             <Grid container spacing={3}>
