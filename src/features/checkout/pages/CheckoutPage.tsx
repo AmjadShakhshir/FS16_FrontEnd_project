@@ -1,4 +1,4 @@
-import { Box, Stepper, Step, StepLabel, Button } from "@mui/material"
+import { Box, Stepper, Step, StepLabel, Button, Typography } from "@mui/material"
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
 
@@ -49,7 +49,7 @@ const initialValues: CheckoutInitialValues = {
 
 const CheckoutPage = () => {
     const [amount, setAmount] = useState(0);
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
     const cart = useAppSelector(state => state.cartReducer);
     const user = useAppSelector(state => state.authReducer.currentUser);
     const dispatch = useAppDispatch();
@@ -62,9 +62,32 @@ const CheckoutPage = () => {
     useEffect(() => {
         const total = Number(cart.reduce((acc, item) => acc + item.price * item.quantity + ((item.price * item.quantity * 0.1)), 0).toFixed(1));
         setAmount(total);
-    }, [cart])
+    }, [cart]);
 
-    if (!user) return <Box>Not logged in</Box>
+    useEffect(() => {
+    if (!user) {
+        setTimeout(() => {
+            navigate('/login');
+        }, 3000); // Redirects after 3 seconds
+    }
+}, [user, navigate]);
+
+    if (!user) return (
+        <Box sx={{
+            width: "80%",
+            height: "300px",
+            margin: "100px auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            border: "1px solid #ccc",
+            borderRadius: "25px",
+        }}>
+            <Typography m={'auto'} variant="h4">
+                Not logged in you'll be redirected in a moment
+            </Typography>
+        </Box>
+    )
 
     const handleFormSubmit = (values: CheckoutInitialValues, actions: any) => {
         // copies the values from billing address to shipping address
@@ -180,7 +203,7 @@ const CheckoutPage = () => {
                                             amount: amount
                                         }))
                                         dispatch(resetCart())
-                                        Navigate("/confirmation")
+                                        navigate("/confirmation")
                                     }}
                                 }
                             >{!isLastStep ? "Next": "Place Order"}</Button>
