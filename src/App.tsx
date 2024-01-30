@@ -18,6 +18,8 @@ import Profile from './features/users/pages/Profile';
 import Checkout from './features/checkout/pages/CheckoutPage';
 import ProtectedRoute from './common/routes/protectedRoute';
 import PaymentConfirmationPage from './features/payment/page/PaymentConfirmationPage';
+import About from './common/pages/About/About';
+import ContactUs from './common/pages/Contact/ContactUs';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -28,6 +30,14 @@ const App = () => {
         { 
           path: '/',
           element: <HomePage />
+        },
+        {
+          path: 'about',
+          element: <About />
+        },
+        {
+          path: 'contact',
+          element: <ContactUs />
         },
         {
           path: 'products',

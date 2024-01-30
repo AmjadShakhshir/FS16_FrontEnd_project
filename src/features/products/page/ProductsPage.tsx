@@ -142,7 +142,7 @@ const Products = () => {
                 alt=""
                 />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                    <Button className="addProduct" onClick={() => navigate("/products/addProduct")}>
+                    <Button className="addProduct" onClick={() => navigate("/addProduct")}>
                         Add Product
                     </Button>
                     <FormControl>
