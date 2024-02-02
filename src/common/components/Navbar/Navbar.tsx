@@ -24,6 +24,18 @@ const Navbar = () => {
     <div className="navbar">
       <div className="wrapper">
         <div className="left">
+          <div className="item">
+            <Link className ="link" to="/">Homepage</Link>
+          </div>
+          <div className="item">
+            <Link className ="link" to="/about">About</Link>
+          </div>
+          <div className="item">
+            <Link className ="link" to="/contact">Contact</Link>
+          </div>
+          <div className="item">
+            <Link className ="link" to="/products">Stores</Link>
+          </div>
           {/* <div className="item">
             <Link className ="link" to="/products/1">Women</Link>
           </div>
@@ -38,19 +50,6 @@ const Navbar = () => {
           <Link className ="link" to="/">Kuzeyartist</Link>
         </div>
         <div className="right">
-          <div className="item">
-            <Link className ="link" to="/">Homepage</Link>
-          </div>
-          <div className="item">
-            <Link className ="link" to="/about">About</Link>
-          </div>
-          <div className="item">
-            <Link className ="link" to="/contact">Contact</Link>
-          </div>
-          <div className="item">
-            <Link className ="link" to="/products">Stores</Link>
-          </div>
-        
           <div className="icons">
             <SearchIcon/>
             <div className="cartIcon" onClick={()=>setOpen(!open)}>
