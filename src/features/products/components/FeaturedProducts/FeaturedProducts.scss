@@ -23,4 +23,22 @@
         justify-content: center;
         gap: 50px;
     }
+
+    @media (max-width: 768px) {
+        margin: 50px 20px;
+
+        .top {
+        flex-direction: column;
+        align-items: flex-start;
+
+        h1, p {
+            flex: auto;
+        }
+        }
+
+        .bottom {
+        flex-direction: column;
+        gap: 20px;
+        }
+    }
 }
