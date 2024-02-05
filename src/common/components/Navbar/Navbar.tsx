@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -17,11 +17,27 @@ import { logout } from "../../../features/users/authReducer";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [open,setOpen] = useState(false)
+  const [open,setOpen] = useState(false);
   const cart = useAppSelector(state => state.cartReducer);
   const { currentUser, status } = useAppSelector(state => state.authReducer);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    setOpen(!open);
+};
+
+useEffect(() => {
+    if (open) {
+        document.addEventListener("mousedown", handleClick);
+    } else {
+        document.removeEventListener("mousedown", handleClick);
+    }
+
+    return () => {
+        document.removeEventListener("mousedown", handleClick);
+    };
+}, [open]);
 
   return (
     <div className="navbar">
@@ -60,7 +76,7 @@ const Navbar = () => {
         <div className="right">
           <div className="icons">
             <SearchIcon/>
-            <div className="cartIcon" onClick={()=>setOpen(!open)}>
+            <div className="cartIcon" onClick={handleClick}>
               <ShoppingCartOutlinedIcon/>
               <span>{cart.length}</span>
             </div>
