@@ -30,4 +30,28 @@
         gap: 10px;
         }
     }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+
+        .wrapper {
+            width: 90%;
+            flex-direction: column;
+            align-items: stretch;
+
+            span {
+                margin-bottom: 10px;
+            }
+
+            input, button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .icons {
+                justify-content: center;
+            }
+        }
+    }
 }
