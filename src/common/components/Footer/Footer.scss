@@ -53,4 +53,39 @@
       }
     }
   }
+
+  @media (max-width: 768px) {
+    margin: 50px 20px;
+
+    .top {
+      flex-direction: column;
+      gap: 20px;
+
+      .item {
+        text-align: left;
+      }
+    }
+
+    .bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+
+      .left, .right {
+        margin-bottom: 20px;
+      }
+
+      .left {
+        .copyright {
+          margin-left: 0;
+        }
+      }
+
+      .right {
+        img {
+          height: 30px;
+        }
+      }
+    }
+  }
 }
