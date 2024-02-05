@@ -25,9 +25,11 @@
 
       .menuItems {
         display: flex;
+        justify-content: space-between;
+        gap: 25px;
 
         &.active {
-          display: block;
+          display: flex;
         }
       }
     }
@@ -75,6 +77,7 @@
 
       .item {
         font-size: 16px;
+        justify-content: space-around;
       }
 
       .left, .right {
