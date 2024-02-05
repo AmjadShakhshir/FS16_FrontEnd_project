@@ -17,6 +17,19 @@
       display: flex;
       align-items: center;
       gap: 25px;
+
+      .menuIcon {
+        display: none;
+        cursor: pointer;
+      }
+
+      .menuItems {
+        display: flex;
+
+        &.active {
+          display: block;
+        }
+      }
     }
     .center {
       font-size: 30px;
@@ -51,6 +64,48 @@
             justify-content: center;
           }
         }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .wrapper {
+      flex-direction: row;
+      justify-content: space-between;
+
+      .item {
+        font-size: 16px;
+      }
+
+      .left, .right {
+        gap: 15px;
+      }
+
+      .left {
+        .menuIcon {
+          display: block;
+        }
+
+        .menuItems {
+          display: none;
+
+          &.active {
+            display: block;
+          }
+        }
+      }
+
+      .center {
+        display: none;
+      }
+
+      .links {
+        display: none;
+      }
+
+      .right {
+        width: 100%;
+        justify-content: flex-end;
       }
     }
   }

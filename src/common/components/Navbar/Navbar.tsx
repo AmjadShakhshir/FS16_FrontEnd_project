@@ -6,6 +6,8 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import { Link, useNavigate } from "react-router-dom";
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 import "./Navbar.scss"
 import useAppSelector from "../../hooks/useAppSelector";
@@ -14,6 +16,7 @@ import useAppDispatch from "../../hooks/useAppDispatch";
 import { logout } from "../../../features/users/authReducer";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [open,setOpen] = useState(false)
   const cart = useAppSelector(state => state.cartReducer);
   const { currentUser, status } = useAppSelector(state => state.authReducer);
@@ -24,27 +27,32 @@ const Navbar = () => {
     <div className="navbar">
       <div className="wrapper">
         <div className="left">
-          <div className="item">
-            <Link className ="link" to="/">Homepage</Link>
+          <div className="menuIcon" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <CloseIcon /> : <MenuIcon />}
           </div>
-          <div className="item">
-            <Link className ="link" to="/about">About</Link>
+          <div className={`menuItems ${menuOpen ? "active" : ""}`}>
+            <div className="item">
+              <Link className ="link" to="/">Homepage</Link>
+            </div>
+            <div className="item">
+              <Link className ="link" to="/about">About</Link>
+            </div>
+            <div className="item">
+              <Link className ="link" to="/contact">Contact</Link>
+            </div>
+            <div className="item">
+              <Link className ="link" to="/products">Stores</Link>
+            </div>
+            {/* <div className="item">
+              <Link className ="link" to="/products/1">Women</Link>
+            </div>
+            <div className="item">
+              <Link className ="link" to="/products/2">Men</Link>
+            </div>
+            <div className="item">
+              <Link className ="link" to="/products/3">Children</Link>
+            </div> */}
           </div>
-          <div className="item">
-            <Link className ="link" to="/contact">Contact</Link>
-          </div>
-          <div className="item">
-            <Link className ="link" to="/products">Stores</Link>
-          </div>
-          {/* <div className="item">
-            <Link className ="link" to="/products/1">Women</Link>
-          </div>
-          <div className="item">
-            <Link className ="link" to="/products/2">Men</Link>
-          </div>
-          <div className="item">
-            <Link className ="link" to="/products/3">Children</Link>
-          </div> */}
         </div>
         <div className="center">
           <Link className ="link" to="/">Kuzeyartist</Link>

@@ -81,4 +81,25 @@
       font-size: 1em;
     }
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+
+    .left, .right {
+      flex: none;
+    }
+
+    .left {
+      .images, .mainImg {
+        flex: none;
+      }
+    }
+
+    .right {
+      .add {
+        width: 100%;
+      }
+    }
+  }
 }

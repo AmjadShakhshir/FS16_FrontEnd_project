@@ -39,10 +39,12 @@ const Products = () => {
     }, [dispatch, selectedSubCats]);
 
     const handleLimitChange = (e: SelectChangeEvent) => {
+        e.preventDefault();
         setLimit(e.target.value);
     }
 
     const handleSort = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
         const value = e.target.value;
         if (value === "desc"){
             dispatch(sortProducts("desc"));

@@ -35,4 +35,24 @@
       margin-bottom: 50px;
     }
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .left, .right {
+      flex: none;
+    }
+
+    .left {
+      position: relative;
+      top: 0;
+      margin-bottom: 30px;
+    }
+
+    .right {
+      .catImg {
+        height: auto;
+      }
+    }
+  }
 }
