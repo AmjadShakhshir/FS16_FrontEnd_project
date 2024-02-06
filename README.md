@@ -1,53 +1,81 @@
-# Front-end Project for Full-stack
-
+# E-Commerce FrontEnd
 ![React](https://img.shields.io/badge/React-v.18-blue)
 ![Redux toolkit](https://img.shields.io/badge/RTK-v.1-purple)
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
 ![SASS](https://img.shields.io/badge/SASS-v.1-hotpink)
 
-This project requires implementation of TypeScript and SASS.
+• Kuzeyartist is an E-commerce project, online shopping solution that brings together the latest technologies to deliver a seamless user experience. The platform is designed to allow customers to browse through a wide range of products, add them to their cart, login, and register. It includes authentication and authorisation as well.
 
-## Requirement
 
-1. Use the API endpoint from your backend project to create an e-commerce website.
-2. Create at lease 4 pages (can be more if you want): Page for all products, product page,
-   profile page (only available if user logins), and cart page (cart page could be a page or a modal)
-3. Create Redux store for following features:
-   - product reducer: get all products, find a single products, filter products by
-     categories, sort products by price. Create, update and delete a product (enable update & delete features only for admin of the webapp)
-   - user reducer: register and login
-   - cart reducer: add product to cart, remove products, update products's quantity in cart
-4. When adding routers to your application, programatically set certain routes to be private. For example, route to user profile page should not be accessible if user has not logged in.
-5. Implement unit testing for the reducers
-6. Deploy the application and rewrite README file.
+## Tech Stack
 
-## Bonus
+React, Redux, Material UI, Typescript, JEST 
 
-1. Use context API to switch theme
-2. Use pagination when fetching/displaying all the products
-3. Implement performance optimization where applicable
 
-## Instruction to start the project
+## Features
 
-In the project directory, you can run:
+- Fullscreen mode
+- Cross platform
 
-### `npm install`
 
-Install all the dependencies
 
-### `npm start`
+## Getting Started
+### Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1- Clone frontend repo
+```sh
+  git clone https://github.com/AmjadShakhshir/FS16_FrontEnd_project.git frontend
+  cd frontend
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2- Install NPM packages
+```js
+npm install npm@latest -g
+```
 
-### `npm test`
+3- Enter your API in `common.ts`
+```sh
+export const url = http://api.example.com
+```
 
-Launches the test runner in the interactive watch mode
+## Running Tests
 
-### `npm run build`
+To run tests, run the following command
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+  npm run test
+```
+
+
+## Demo
+
+https://www.kuzeyartist.com
+## API Reference
+
+#### Get all products
+
+```http
+  GET /products
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
+
+#### Get product
+
+```http
+  GET /products/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+
+
+
+## Authors
+
+- [@amjadshakhshir](https://www.github.com/amjadshakhshir)
+
